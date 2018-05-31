@@ -1,0 +1,3 @@
+/home/elias/CLionProjects/Odyssey++_2.0/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/elias/CLionProjects/Odyssey++_2.0/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/elias/CLionProjects/Odyssey++_2.0/cmake-build-debug/CMakeFiles/Odyssey___2_0.dir

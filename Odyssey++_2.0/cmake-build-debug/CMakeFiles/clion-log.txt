@@ -1,0 +1,50 @@
+/home/elias/Escritorio/clion-2017.3.4/bin/cmake/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/elias/CLionProjects/Odyssey++_2.0
+-- Installing live555
+running wget http://www.live555.com/liveMedia/public/live555-latest.tar.gz -O - | tar xzf - 2>&1
+--2018-05-30 00:29:11--  http://www.live555.com/liveMedia/public/live555-latest.tar.gz
+Resolviendo www.live555.com (www.live555.com)... 4.79.217.242
+Conectando con www.live555.com (www.live555.com)[4.79.217.242]:80... conectado.
+Petición HTTP enviada, esperando respuesta... 200 OK
+Longitud: 630341 (616K) [application/x-gzip]
+Grabando a: “STDOUT”
+
+     0K .......... .......... .......... .......... ..........  8% 82,0K 7s
+    50K .......... .......... .......... .......... .......... 16%  113K 5s
+   100K .......... .......... .......... .......... .......... 24%  168K 4s
+   150K .......... .......... .......... .......... .......... 32%  192K 3s
+   200K .......... .......... .......... .......... .......... 40%  210K 3s
+   250K .......... .......... .......... .......... .......... 48%  277K 2s
+   300K .......... .......... .......... .......... .......... 56%  226K 2s
+   350K .......... .......... .......... .......... .......... 64%  182K 1s
+   400K .......... .......... .......... .......... .......... 73%  268K 1s
+   450K .......... .......... .......... .......... .......... 81%  139K 1s
+   500K .......... .......... .......... .......... .......... 89%  316K 0s
+   550K .......... .......... .......... .......... .......... 97%  129K 0s
+   600K .......... .....                                      100% 49,0K=3,9s
+
+2018-05-30 00:29:16 (156 KB/s) - escritos a stdout [630341/630341]
+
+running cd live && ./genMakefiles linux-gdb && make CPLUSPLUS_COMPILER=/usr/bin/c++ C_COMPILER=/usr/bin/cc LINK='/usr/bin/c++ -o' CPPFLAGS=-DALLOW_RTSP_SERVER_PORT_REUSE=1 PREFIX= install 2>&1
+cd liveMedia ; make install
+make[1]: se entra en el directorio '/home/elias/CLionProjects/Odyssey++_2.0/cmake-build-debug/live/liveMedia'
+install -d /include/liveMedia /lib
+install: no se puede crear el directorio «/include»: Permiso denegado
+Makefile:418: fallo en las instrucciones para el objetivo 'install1'
+make[1]: *** [install1] Error 1
+make[1]: se sale del directorio '/home/elias/CLionProjects/Odyssey++_2.0/cmake-build-debug/live/liveMedia'
+Makefile:44: fallo en las instrucciones para el objetivo 'install'
+make: *** [install] Error 2
+-- Configuring done
+CMake Error at CMakeLists.txt:6 (add_executable):
+  Cannot find source file:
+
+    /home/elias/live/BasicUsageEnvironment/include/BasicTaskScheduler.cpp
+
+  Tried extensions .c .C .c++ .cc .cpp .cxx .m .M .mm .h .hh .h++ .hm .hpp
+  .hxx .in .txx
+
+
+CMake Error: CMake can not determine linker language for target: Odyssey___2_0
+CMake Error: Cannot determine link language for target "Odyssey___2_0".
+-- Generating done
+-- Build files have been written to: /home/elias/CLionProjects/Odyssey++_2.0/cmake-build-debug
