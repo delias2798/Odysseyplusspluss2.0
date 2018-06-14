@@ -1,0 +1,19 @@
+<component name="libraryTable">
+  <library name="jna-platform-4.1.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/vlcj-3.10.1/jna-platform-4.1.0.jar!/" />
+      <root url="jar://$USER_HOME$/vlcj-3.10.1/jna-4.1.0.jar!/" />
+      <root url="jar://$USER_HOME$/vlcj-3.10.1/slf4j-api-1.7.10.jar!/" />
+      <root url="jar://$USER_HOME$/vlcj-3.10.1/vlcj-3.10.1-tests.jar!/" />
+      <root url="jar://$USER_HOME$/vlcj-3.10.1/vlcj-3.10.1.jar!/" />
+      <root url="file://$USER_HOME$/vlcj-3.10.1" />
+    </CLASSES>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/vlcj-3.10.1/vlcj-3.10.1-sources.jar!/" />
+      <root url="jar://$USER_HOME$/vlcj-3.10.1/vlcj-3.10.1-test-sources.jar!/" />
+      <root url="file://$USER_HOME$/vlcj-3.10.1" />
+    </SOURCES>
+    <jarDirectory url="file://$USER_HOME$/vlcj-3.10.1" recursive="false" />
+    <jarDirectory url="file://$USER_HOME$/vlcj-3.10.1" recursive="false" type="SOURCES" />
+  </library>
+</component>
