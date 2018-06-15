@@ -9,23 +9,81 @@ import XMLconvert.JAXBObjectToXml;
 import XMLconvert.User;
 import javax.swing.JOptionPane;
 
-
-
 /**
+ *
  * @author josek
  */
-public class SingIn extends javax.swing.JFrame {
+public class UpdateUser extends javax.swing.JFrame {
 
     String genre;
     static String FRIEND_ADD = "";
 
     /**
-     * Creates new form SingIn
+     * Creates new form UpdateUser
      */
-    public SingIn() {
+    public UpdateUser() {
         initComponents();
-        setDefaultCloseOperation(Metadata.DISPOSE_ON_CLOSE);
+
+        String myU = Interface.myUserName.getText();
+        jTextUserName1.setText(myU);
+
+        System.out.println("USER: " + myU);
+
+        User user_Update = new User();
+        user_Update.setUsername(myU);
+        user_Update.setTag("NeedUser");
+
+        JAXBObjectToXml xmlUpdate = new JAXBObjectToXml();
+
+        String xml_string = xmlUpdate.ConvertToXML(user_Update, User.class);
+
+        connect_Server cn = new connect_Server();
+        String resUpdate = cn.connect(xml_string);
+
+        System.out.println("1: " + resUpdate);
+
+        User userServerUpdate = new User();
+        userServerUpdate = xmlUpdate.ConvertToUser(resUpdate);          //Pasar de xml a string
+
+        System.out.println("2: " + userServerUpdate);
+
+        jTextAge.setText(userServerUpdate.getAge());
+        jTextLastName.setText(userServerUpdate.getLastname());
+        jTextPassword.setText(userServerUpdate.getPass());
+        jTextName.setText(userServerUpdate.getName());
+        
+        String genres = userServerUpdate.getLike();
+        
+        String[] genresSpace = genres.split(" ");
+        
+        for (int ind1 =0; ind1 < genresSpace.length;ind1++){
+            
+            System.out.println("]> "+genresSpace[ind1]);
+            if(genresSpace[ind1].equals("1")){              rock.setSelected(true);             }
+            else if(genresSpace[ind1].equals("2")){                hiphop.setSelected(true);            }            
+            else if(genresSpace[ind1].equals("3")){                rockroll.setSelected(true);            }
+            else if(genresSpace[ind1].equals("4")){                balada.setSelected(true);            }            
+            else if(genresSpace[ind1].equals("5")){                pop.setSelected(true);            }
+            else if(genresSpace[ind1].equals("6")){                reggae.setSelected(true);            }            
+            else if(genresSpace[ind1].equals("7")){                rap.setSelected(true);            }
+            else if(genresSpace[ind1].equals("8")){                banda.setSelected(true);            }            
+            else if(genresSpace[ind1].equals("9")){                electro.setSelected(true);            }
+            else if(genresSpace[ind1].equals("10")){                bachata.setSelected(true);            }            
+            else if(genresSpace[ind1].equals("11")){                trashmetal.setSelected(true);            }
+            else if(genresSpace[ind1].equals("12")){                dance.setSelected(true);            }            
+            else if(genresSpace[ind1].equals("13")){                salsa.setSelected(true);            }
+            else if(genresSpace[ind1].equals("14")){                ska.setSelected(true);            }
+            else if(genresSpace[ind1].equals("15")){                jazz.setSelected(true);            }            
+            else if(genresSpace[ind1].equals("16")){                punk.setSelected(true);            }
+            else{
+                System.err.println("Mala divion del string/ genero no existente");
+            }
+            
+                  
+        }
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -55,21 +113,19 @@ public class SingIn extends javax.swing.JFrame {
         jTextPassword = new javax.swing.JTextField();
         punk = new javax.swing.JCheckBox();
         jLabel1 = new javax.swing.JLabel();
-        buttonCreate = new javax.swing.JButton();
+        buttonUpdate_User = new javax.swing.JButton();
         rock = new javax.swing.JCheckBox();
         userName = new javax.swing.JLabel();
         fullName = new javax.swing.JLabel();
         age = new javax.swing.JLabel();
-        jTextUserName = new javax.swing.JTextField();
+        jTextUserName1 = new javax.swing.JTextField();
         jTextName = new javax.swing.JTextField();
         jTextAge = new javax.swing.JTextField();
         passWord1 = new javax.swing.JLabel();
         fullName1 = new javax.swing.JLabel();
         jTextLastName = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 102));
         jPanel1.setFocusable(false);
@@ -123,10 +179,10 @@ public class SingIn extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon("/home/josek/Escritorio/imagenes/create-new-user-icon-3234.png")); // NOI18N
 
-        buttonCreate.setText("Create");
-        buttonCreate.addActionListener(new java.awt.event.ActionListener() {
+        buttonUpdate_User.setText("Update");
+        buttonUpdate_User.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonCreateActionPerformed(evt);
+                buttonUpdate_UserActionPerformed(evt);
             }
         });
 
@@ -139,9 +195,10 @@ public class SingIn extends javax.swing.JFrame {
 
         age.setText("Age:");
 
-        jTextUserName.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTextUserName1.setEditable(false);
+        jTextUserName1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextUserNameKeyTyped(evt);
+                jTextUserName1KeyTyped(evt);
             }
         });
 
@@ -157,7 +214,7 @@ public class SingIn extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(buttonCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(buttonUpdate_User, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel1))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -168,7 +225,7 @@ public class SingIn extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(fullName)
                                 .addComponent(userName)
-                                .addComponent(jTextUserName, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
+                                .addComponent(jTextUserName1, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
                                 .addComponent(jTextName))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -218,7 +275,7 @@ public class SingIn extends javax.swing.JFrame {
                     .addComponent(age))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextUserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextUserName1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextAge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -260,26 +317,34 @@ public class SingIn extends javax.swing.JFrame {
                 .addComponent(jTextPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(buttonCreate)
+                    .addComponent(buttonUpdate_User)
                     .addComponent(jLabel1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 450));
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 521, -1, -1));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void buttonCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCreateActionPerformed
+    private void buttonUpdate_UserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpdate_UserActionPerformed
 
-        String userNamee = this.jTextUserName.getText();
+        String userNamee = this.jTextUserName1.getText();
         String name = this.jTextName.getText();
         String lastName = this.jTextLastName.getText();
 
         String ageUser = this.jTextAge.getText();
         String password = this.jTextPassword.getText();
-        if (userNamee.trim().isEmpty() || name.trim().isEmpty() || ageUser.trim().isEmpty() || password.trim().isEmpty() || lastName.trim().isEmpty() ) {
+        if (userNamee.trim().isEmpty() || name.trim().isEmpty() || ageUser.trim().isEmpty() || password.trim().isEmpty() || lastName.trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Error: Empty Fields : ", "Sing In", 1);
         } else {
             genre = "";
@@ -345,7 +410,7 @@ public class SingIn extends javax.swing.JFrame {
             user.setLastname(lastName);
 
             user.setFriends(friends);
-            user.setTag("AddUser");
+            user.setTag("UpdateUser");
 
             String xml_string = xml.ConvertToXML(user, User.class);
 
@@ -354,58 +419,75 @@ public class SingIn extends javax.swing.JFrame {
             System.out.println("SingIn> " + res);
 
             if (res.equals("TRUE")) {
-                JOptionPane.showMessageDialog(this, "Welcome to Odyssey++2\nSuccessfully registered user", "Sing In", 1);
+                JOptionPane.showMessageDialog(this, "Successfully Update", "Update", 1);
             } else {
-                JOptionPane.showMessageDialog(this, "Error: Invalid username", "Sing In", 2);
+                JOptionPane.showMessageDialog(this, "Error: Update miss", "Update", 3);
             }
             /*
             User user2 = new User();
             user2 = xml.ConvertToUser(xml_string);          //Pasar de xml a string
              */
         }
+    }//GEN-LAST:event_buttonUpdate_UserActionPerformed
 
-    }//GEN-LAST:event_buttonCreateActionPerformed
-
-    private void jTextUserNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextUserNameKeyTyped
+    private void jTextUserName1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextUserName1KeyTyped
         // TODO add your handling code here:
-        
-        
-        
-    }//GEN-LAST:event_jTextUserNameKeyTyped
+
+    }//GEN-LAST:event_jTextUserName1KeyTyped
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(UpdateUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(UpdateUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(UpdateUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(UpdateUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
 
+        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SingIn().setVisible(true);
+                new UpdateUser().setVisible(true);
             }
         });
-
     }
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel age;
     private javax.swing.JCheckBox bachata;
     private javax.swing.JCheckBox balada;
     private javax.swing.JCheckBox banda;
-    private javax.swing.JButton buttonCreate;
+    private javax.swing.JButton buttonUpdate_User;
     private javax.swing.JCheckBox dance;
     private javax.swing.JCheckBox electro;
     private javax.swing.JLabel fullName;
     private javax.swing.JLabel fullName1;
     private javax.swing.JCheckBox hiphop;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextAge;
     private javax.swing.JTextField jTextLastName;
     private javax.swing.JTextField jTextName;
     private javax.swing.JTextField jTextPassword;
-    private javax.swing.JTextField jTextUserName;
+    public static javax.swing.JTextField jTextUserName1;
     private javax.swing.JCheckBox jazz;
     private javax.swing.JLabel passWord;
     private javax.swing.JLabel passWord1;

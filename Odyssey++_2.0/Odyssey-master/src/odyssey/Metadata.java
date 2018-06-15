@@ -17,8 +17,7 @@ public class Metadata extends javax.swing.JFrame {
      * Creates new form Metadata
      */
     public Metadata() {
-        initComponents();
-        
+        initComponents();        
         setDefaultCloseOperation(Metadata.DISPOSE_ON_CLOSE);
     }
 
