@@ -11,6 +11,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import static odyssey.Login.UserName;
+import uk.co.caprica.vlcj.binding.internal.libvlc_state_t;
 import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
 import uk.co.caprica.vlcj.discovery.NativeDiscovery;
 
@@ -22,8 +23,9 @@ import uk.co.caprica.vlcj.discovery.NativeDiscovery;
 public final class Interface extends javax.swing.JFrame {
 
     DefaultListModel din = new DefaultListModel();
-    String musicMusic, filePath, myU;
-    private EmbeddedMediaPlayerComponent mediaPlayerComponent;
+    DefaultListModel dinVideo = new DefaultListModel();
+    String musicMusic, filePath, myU, q;
+    private EmbeddedMediaPlayerComponent mediaPlayerComponent = new EmbeddedMediaPlayerComponent();
 
     /**
      * Creación de la ventana y su llamado
@@ -37,6 +39,7 @@ public final class Interface extends javax.swing.JFrame {
         myUserName.setText(myU);
 
         updateListM(myU);
+        updateListV(myU);
 
     }
 
@@ -59,14 +62,7 @@ public final class Interface extends javax.swing.JFrame {
         rateM4 = new javax.swing.JRadioButton();
         search = new javax.swing.JLabel();
         searchS = new javax.swing.JButton();
-        lab_song = new javax.swing.JLabel();
         S_song = new javax.swing.JTextField();
-        lab_artist = new javax.swing.JLabel();
-        S_artist = new javax.swing.JTextField();
-        lab_album = new javax.swing.JLabel();
-        S_album = new javax.swing.JTextField();
-        lab_letter = new javax.swing.JLabel();
-        S_letter = new javax.swing.JTextField();
         lab_LyricsG = new javax.swing.JLabel();
         Guess = new javax.swing.JButton();
         Evaluate = new javax.swing.JButton();
@@ -97,8 +93,10 @@ public final class Interface extends javax.swing.JFrame {
         rateV1 = new javax.swing.JRadioButton();
         rateV5 = new javax.swing.JRadioButton();
         playMusic = new javax.swing.JButton();
-        Stop = new javax.swing.JButton();
         After = new javax.swing.JButton();
+        mute = new javax.swing.JButton();
+        Stop2 = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
@@ -164,6 +162,11 @@ public final class Interface extends javax.swing.JFrame {
 
         rateSong.setBackground(new java.awt.Color(204, 255, 204));
         rateSong.setText("Rate Song");
+        rateSong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rateSongActionPerformed(evt);
+            }
+        });
         getContentPane().add(rateSong, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 264, -1));
 
         rateM2.setBackground(new java.awt.Color(153, 153, 153));
@@ -206,22 +209,7 @@ public final class Interface extends javax.swing.JFrame {
             }
         });
         getContentPane().add(searchS, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 150, 250, -1));
-
-        lab_song.setText("Song :");
-        getContentPane().add(lab_song, new org.netbeans.lib.awtextra.AbsoluteConstraints(899, 41, 54, -1));
-        getContentPane().add(S_song, new org.netbeans.lib.awtextra.AbsoluteConstraints(971, 39, 168, -1));
-
-        lab_artist.setText("Artist :");
-        getContentPane().add(lab_artist, new org.netbeans.lib.awtextra.AbsoluteConstraints(899, 66, 64, -1));
-        getContentPane().add(S_artist, new org.netbeans.lib.awtextra.AbsoluteConstraints(971, 64, 168, -1));
-
-        lab_album.setText("Album :");
-        getContentPane().add(lab_album, new org.netbeans.lib.awtextra.AbsoluteConstraints(899, 91, -1, -1));
-        getContentPane().add(S_album, new org.netbeans.lib.awtextra.AbsoluteConstraints(969, 89, 168, -1));
-
-        lab_letter.setText("Letter :");
-        getContentPane().add(lab_letter, new org.netbeans.lib.awtextra.AbsoluteConstraints(899, 116, 64, -1));
-        getContentPane().add(S_letter, new org.netbeans.lib.awtextra.AbsoluteConstraints(969, 114, 168, -1));
+        getContentPane().add(S_song, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 40, 168, 30));
 
         lab_LyricsG.setText("Lyrics guessing______________________");
         getContentPane().add(lab_LyricsG, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 300, -1, -1));
@@ -298,13 +286,9 @@ public final class Interface extends javax.swing.JFrame {
                 playVideoMouseClicked(evt);
             }
         });
-        playVideo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                playVideoActionPerformed(evt);
-            }
-        });
         getContentPane().add(playVideo, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 450, 160, -1));
 
+        Before.setIcon(new javax.swing.ImageIcon(getClass().getResource("/odyssey/_2.png"))); // NOI18N
         Before.setText("Before");
         Before.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -313,11 +297,6 @@ public final class Interface extends javax.swing.JFrame {
         });
         getContentPane().add(Before, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 420, 90, 60));
 
-        jListVideos.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "dgdfg" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         listMusic2.setViewportView(jListVideos);
 
         getContentPane().add(listMusic2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 264, 107));
@@ -351,6 +330,11 @@ public final class Interface extends javax.swing.JFrame {
 
         rateVideo.setBackground(new java.awt.Color(255, 204, 204));
         rateVideo.setText("Rate Video");
+        rateVideo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rateVideoActionPerformed(evt);
+            }
+        });
         getContentPane().add(rateVideo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, 264, -1));
 
         rateM1.setBackground(new java.awt.Color(153, 153, 153));
@@ -459,28 +443,35 @@ public final class Interface extends javax.swing.JFrame {
                 playMusicMouseClicked(evt);
             }
         });
-        playMusic.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                playMusicActionPerformed(evt);
-            }
-        });
         getContentPane().add(playMusic, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 420, 160, -1));
 
-        Stop.setText("Stop");
-        Stop.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                StopActionPerformed(evt);
-            }
-        });
-        getContentPane().add(Stop, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 420, 140, 60));
-
+        After.setIcon(new javax.swing.ImageIcon(getClass().getResource("/odyssey/_1.png"))); // NOI18N
         After.setText("After");
         After.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AfterActionPerformed(evt);
             }
         });
-        getContentPane().add(After, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 420, 90, 60));
+        getContentPane().add(After, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 420, 80, 60));
+
+        mute.setText("Mute");
+        mute.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                muteActionPerformed(evt);
+            }
+        });
+        getContentPane().add(mute, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 450, 140, -1));
+
+        Stop2.setText("Stop");
+        Stop2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Stop2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(Stop2, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 420, 140, -1));
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Title", "Artist", "Album", "Letter" }));
+        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 40, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -549,6 +540,68 @@ public final class Interface extends javax.swing.JFrame {
     }
 
     /**
+     * Actualiza la lista de musica
+     *
+     * @param na
+     */
+    public void updateListV(String na) {
+        connect_Server cUpMus = new connect_Server();
+
+        Track t = new Track();
+        t.setUsername(na);
+        t.setTag("NeedAllVideos");
+
+        JAXBObjectToXml xml_UpMus = new JAXBObjectToXml();
+
+        String b = xml_UpMus.ConvertToXML(t, Track.class);
+
+        String a = cUpMus.connect(b);
+
+        System.out.println("Edd: " + a);
+        ListVideos(a);
+    }
+
+    /**
+     * Organiza la lista de pistas/canciones
+     *
+     * @param xml_string
+     */
+    public void ListVideos(String xml_string) {
+        dinVideo.clear();
+
+        Track track = new Track();
+        String findS = "<track>";
+        String findE = "</track>";
+        String track_;
+        JAXBObjectToXml xml = new JAXBObjectToXml();
+        int s;
+        int e;
+
+        s = xml_string.indexOf("<list>");
+        e = xml_string.indexOf("</list>");
+        System.out.println(s + "   " + e);
+        if (s > 0) {
+            xml_string = xml_string.substring(s + "<list>".length(), e);
+
+            while (xml_string.length() != 0) {
+                s = xml_string.indexOf(findS);
+                e = xml_string.indexOf(findE);
+                track_ = xml_string.substring(s, e + findE.length());
+
+                xml_string = xml_string.substring(e + findE.length(), xml_string.length());
+
+                track = xml.ConvertToTrack(track_);
+
+                dinVideo.addElement(track.getTitle());
+                System.out.println(track.getTitle());
+            }
+        }
+
+        jListVideos.setModel(dinVideo);
+        //din.clear();
+    }
+
+    /**
      * Acción para agregar una canción
      *
      * @param evt
@@ -558,7 +611,7 @@ public final class Interface extends javax.swing.JFrame {
         fileChooser.setCurrentDirectory(new File("C:\\home\\josek\\Descargas"));///home/josek/Descargas
         fileChooser.setDialogTitle("Select Mp3");
         fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        fileChooser.setFileFilter(new FileNameExtensionFilter("Mp3 files", "mp3","mp4"));
+        fileChooser.setFileFilter(new FileNameExtensionFilter("Mp3 files", "mp3"));
         if (fileChooser.showOpenDialog(addMusic) == JFileChooser.APPROVE_OPTION) {
             //try {
             File myFile = fileChooser.getSelectedFile();
@@ -585,15 +638,15 @@ public final class Interface extends javax.swing.JFrame {
 
             String xml_string = xmlLogin.ConvertToXML(tAdd, Track.class);
 
-            System.out.println("!"+xml_string);
+            System.out.println("!" + xml_string);
 
             connect_Server s = new connect_Server();
 
             String res = s.connect(xml_string);
-            System.out.println("?"+res);
+            System.out.println("?" + res);
             if (!res.equals("TRUE")) {
-                 JOptionPane.showMessageDialog(this, "Error: ", "Music Up", 1);
-            } 
+                JOptionPane.showMessageDialog(this, "Error: ", "Music Up", 1);
+            }
         }
 
         /*
@@ -641,16 +694,16 @@ public final class Interface extends javax.swing.JFrame {
             }
                 
          */
-    
+
     }//GEN-LAST:event_addMusicActionPerformed
 
-/**
- * Lector de bytes desde un archivo
- *
- * @param filePath
- * @return
- */
-private static byte[] readBytesFromFile(String filePath) {
+    /**
+     * Lector de bytes desde un archivo
+     *
+     * @param filePath
+     * @return
+     */
+    private static byte[] readBytesFromFile(String filePath) {
 
         FileInputStream fileInputStream = null;
         byte[] bytesArray = null;
@@ -817,7 +870,32 @@ private static byte[] readBytesFromFile(String filePath) {
      * @param evt
      */
     private void deleteMusicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteMusicActionPerformed
-        // TODO add your handling code here:
+
+        if (!jListMusic.isSelectionEmpty()) {
+
+            int ind = jListMusic.getSelectedIndex();
+            Track t = new Track();
+            t.setUsername(myU);
+            t.setTitle(jListMusic.getSelectedValue());
+
+            t.setTag("DelTrack");
+
+            JAXBObjectToXml xml_UpMus = new JAXBObjectToXml();
+
+            String b = xml_UpMus.ConvertToXML(t, Track.class);
+
+            connect_Server cUpMus = new connect_Server();
+            String a = cUpMus.connect(b);
+
+            if (a.equals("TRUE")) {
+                din.remove(ind);
+                jListMusic.setModel(din);
+                JOptionPane.showMessageDialog(this, "Succesfull remove", "Interface", 1);
+            } else {
+                JOptionPane.showMessageDialog(this, "Error: Sad remove ", "Interface", 2);
+
+            }
+        }
     }//GEN-LAST:event_deleteMusicActionPerformed
 
     /**
@@ -826,7 +904,47 @@ private static byte[] readBytesFromFile(String filePath) {
      * @param evt
      */
     private void addVideoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addVideoActionPerformed
-        // TODO add your handling code here:
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setCurrentDirectory(new File("C:\\home\\josek\\Descargas"));
+        fileChooser.setDialogTitle("Select Mp4");
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        fileChooser.setFileFilter(new FileNameExtensionFilter("Mp4 files", "mp4"));
+        if (fileChooser.showOpenDialog(addMusic) == JFileChooser.APPROVE_OPTION) {
+
+            File myFile = fileChooser.getSelectedFile();
+            String filename = fileChooser.getSelectedFile().getName();
+            filePath = fileChooser.getSelectedFile().getPath();
+
+            System.out.println(filePath);
+
+            musicMusic = filename.substring(0, filename.length() - 4);
+            System.out.println(": Name Video : " + musicMusic);
+
+            dinVideo.addElement(musicMusic);
+            jListVideos.setModel(dinVideo);
+
+            String userName = UserName.getText();
+
+            Track tAdd = new Track();
+            JAXBObjectToXml xmlLogin = new JAXBObjectToXml();
+
+            tAdd.setUsername(userName);
+            tAdd.setTitle(musicMusic);
+            tAdd.setPath(filePath);
+            tAdd.setTag("AddVideo");
+
+            String xml_string = xmlLogin.ConvertToXML(tAdd, Track.class);
+
+            System.out.println("!" + xml_string);
+
+            connect_Server s = new connect_Server();
+
+            String res = s.connect(xml_string);
+            System.out.println("?" + res);
+            if (!res.equals("TRUE")) {
+                JOptionPane.showMessageDialog(this, "Error: ", "Music Up", 1);
+            }
+        }
     }//GEN-LAST:event_addVideoActionPerformed
 
     /**
@@ -835,7 +953,30 @@ private static byte[] readBytesFromFile(String filePath) {
      * @param evt
      */
     private void deleteVideoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteVideoActionPerformed
-        // TODO add your handling code here:
+        if (!jListVideos.isSelectionEmpty()) {
+            int ind = jListVideos.getSelectedIndex();
+            Track t = new Track();
+            t.setUsername(myU);
+            t.setTitle(jListVideos.getSelectedValue());
+
+            t.setTag("DelVideo");
+
+            JAXBObjectToXml xml_UpMus = new JAXBObjectToXml();
+
+            String b = xml_UpMus.ConvertToXML(t, Track.class);
+
+            connect_Server cUpMus = new connect_Server();
+            String a = cUpMus.connect(b);
+
+            if (a.equals("TRUE")) {
+                dinVideo.remove(ind);
+                jListVideos.setModel(dinVideo);
+                JOptionPane.showMessageDialog(this, "Succesfull remove", "Interface", 1);
+            } else {
+                JOptionPane.showMessageDialog(this, "Error: Sad remove ", "Interface", 2);
+
+            }
+        }
     }//GEN-LAST:event_deleteVideoActionPerformed
 
     /**
@@ -845,6 +986,9 @@ private static byte[] readBytesFromFile(String filePath) {
      */
     private void modVideoMetadataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modVideoMetadataActionPerformed
         // TODO add your handling code here:
+        MetadataVideo metadataVideo = new MetadataVideo();
+        metadataVideo.setVisible(true);
+
     }//GEN-LAST:event_modVideoMetadataActionPerformed
 
     /**
@@ -854,6 +998,10 @@ private static byte[] readBytesFromFile(String filePath) {
      */
     private void rateM1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rateM1ActionPerformed
         // TODO add your handling code here:
+        rateM4.setSelected(false);
+        rateM2.setSelected(false);
+        rateM3.setSelected(false);
+        rateM5.setSelected(false);
     }//GEN-LAST:event_rateM1ActionPerformed
 
     /**
@@ -863,6 +1011,10 @@ private static byte[] readBytesFromFile(String filePath) {
      */
     private void rateM5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rateM5ActionPerformed
         // TODO add your handling code here:
+        rateM1.setSelected(false);
+        rateM2.setSelected(false);
+        rateM3.setSelected(false);
+        rateM4.setSelected(false);
     }//GEN-LAST:event_rateM5ActionPerformed
 
     /**
@@ -872,6 +1024,10 @@ private static byte[] readBytesFromFile(String filePath) {
      */
     private void rateV2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rateV2ActionPerformed
         // TODO add your handling code here:
+        rateV1.setSelected(false);
+        rateV5.setSelected(false);
+        rateV3.setSelected(false);
+        rateV4.setSelected(false);
     }//GEN-LAST:event_rateV2ActionPerformed
 
     /**
@@ -881,6 +1037,10 @@ private static byte[] readBytesFromFile(String filePath) {
      */
     private void rateV3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rateV3ActionPerformed
         // TODO add your handling code here:
+        rateV1.setSelected(false);
+        rateV5.setSelected(false);
+        rateV2.setSelected(false);
+        rateV4.setSelected(false);
     }//GEN-LAST:event_rateV3ActionPerformed
 
     /**
@@ -890,6 +1050,10 @@ private static byte[] readBytesFromFile(String filePath) {
      */
     private void rateV4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rateV4ActionPerformed
         // TODO add your handling code here:
+        rateV1.setSelected(false);
+        rateV5.setSelected(false);
+        rateV3.setSelected(false);
+        rateV2.setSelected(false);
     }//GEN-LAST:event_rateV4ActionPerformed
 
     /**
@@ -899,6 +1063,10 @@ private static byte[] readBytesFromFile(String filePath) {
      */
     private void rateV1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rateV1ActionPerformed
         // TODO add your handling code here:
+        rateV4.setSelected(false);
+        rateV5.setSelected(false);
+        rateV3.setSelected(false);
+        rateV2.setSelected(false);
     }//GEN-LAST:event_rateV1ActionPerformed
 
     /**
@@ -908,20 +1076,11 @@ private static byte[] readBytesFromFile(String filePath) {
      */
     private void rateV5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rateV5ActionPerformed
         // TODO add your handling code here:
+        rateV1.setSelected(false);
+        rateV4.setSelected(false);
+        rateV3.setSelected(false);
+        rateV2.setSelected(false);
     }//GEN-LAST:event_rateV5ActionPerformed
-
-    /**
-     * Acción para rrealizar la reproducción -Streaming
-     *
-     * @param evt
-     */
-    private void playVideoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playVideoActionPerformed
-
-        if (!jListMusic.isSelectionEmpty() && !jListVideos.isSelectionEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please select an option to perform the rating", "Evaluate", 2);
-
-        }
-    }//GEN-LAST:event_playVideoActionPerformed
 
     /**
      * Acción para reproducir canciones/videos-
@@ -929,36 +1088,254 @@ private static byte[] readBytesFromFile(String filePath) {
      * @param evt
      */
     private void playVideoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_playVideoMouseClicked
-        mediaPlayerComponent= null;
-        new NativeDiscovery().discover();
-        mediaPlayerComponent = new EmbeddedMediaPlayerComponent();
-        jInternalFrame1.setContentPane(mediaPlayerComponent);
-        jInternalFrame1.setVisible(true);
-        mediaPlayerComponent.getMediaPlayer().playMedia(filePath);
+
+        mediaPlayerComponent.getMediaPlayer().release();
+        
+       // if (!mediaPlayerComponent.getMediaPlayer().isPlaying()) {
+            new NativeDiscovery().discover();
+            mediaPlayerComponent = new EmbeddedMediaPlayerComponent();
+            jInternalFrame1.setContentPane(mediaPlayerComponent);
+            jInternalFrame1.setVisible(true);
+            String aSel;
+
+            if (!jListVideos.isSelectionEmpty()) {
+                aSel = jListVideos.getSelectedValue();
+
+                q = needPathVideo(aSel);
+
+                System.out.println("my q" + q);
+
+                if (!q.equals("FALSE")) {
+                    System.out.println("My State :" + mediaPlayerComponent.getMediaPlayer().getMediaState());
+                    mediaPlayerComponent.getMediaPlayer().playMedia(q);
+                }
+            }
+        //}
 
     }//GEN-LAST:event_playVideoMouseClicked
 
     private void BeforeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BeforeActionPerformed
+        float fr = mediaPlayerComponent.getMediaPlayer().getPosition();
 
-            mediaPlayerComponent.getMediaPlayer().pause();
+        mediaPlayerComponent.getMediaPlayer().skipPosition(2.4f);
         // TODO add your handling code here:
     }//GEN-LAST:event_BeforeActionPerformed
 
     private void playMusicMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_playMusicMouseClicked
         // TODO add your handling code here:
+
+        mediaPlayerComponent.getMediaPlayer().release();
+        
+        
+        //if (!mediaPlayerComponent.getMediaPlayer().isPlaying()) {
+            new NativeDiscovery().discover();
+            mediaPlayerComponent = new EmbeddedMediaPlayerComponent();
+            //jInternalFrame1.removeAll();
+            jInternalFrame1.setContentPane(mediaPlayerComponent);
+            jInternalFrame1.setVisible(true);
+            String aSel;
+
+            if (!jListMusic.isSelectionEmpty()) {
+                aSel = jListMusic.getSelectedValue();
+
+                q = needPath(aSel);
+
+                if (!q.equals("FALSE")) {
+                    System.out.println("My State :" + mediaPlayerComponent.getMediaPlayer().getMediaState());
+                    mediaPlayerComponent.getMediaPlayer().playMedia(q);
+                    System.out.println("My State :" + mediaPlayerComponent.getMediaPlayer().getMediaState());
+                }
+           // }
+        }
+
     }//GEN-LAST:event_playMusicMouseClicked
 
-    private void playMusicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playMusicActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_playMusicActionPerformed
+    public String needPath(String myselect) {
 
-    private void StopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StopActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_StopActionPerformed
+        connect_Server cUpMus = new connect_Server();
+
+        Track t = new Track();
+        t.setUsername(myU);
+        t.setTitle(myselect);
+        t.setTag("NeedTrack");
+
+        JAXBObjectToXml xml_UpMus = new JAXBObjectToXml();
+
+        String b = xml_UpMus.ConvertToXML(t, Track.class);
+
+        String a = cUpMus.connect(b);
+
+        if (a.equals("FALSE")) {
+            return "FAlSE";
+        }
+
+        t = xml_UpMus.ConvertToTrack(a);
+
+        System.out.println("{]" + t.getPath());
+
+        return t.getPath();
+    }
+
+    public String needPathVideo(String myselect) {
+
+        connect_Server cUpMus = new connect_Server();
+
+        Track t = new Track();
+        t.setUsername(myU);
+        t.setTitle(myselect);
+        t.setTag("NeedVideo");
+
+        JAXBObjectToXml xml_UpMus = new JAXBObjectToXml();
+
+        String b = xml_UpMus.ConvertToXML(t, Track.class);
+
+        String a = cUpMus.connect(b);
+
+        System.out.println("A.= " + a);
+
+        if (a.equals("FALSE")) {
+            return "FAlSE";
+        } else {
+            t = xml_UpMus.ConvertToTrack(a);
+            System.out.println("{Path]" + t.getPath());
+
+        return t.getPath();
+        }
+
+        
+    
+}
+
 
     private void AfterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AfterActionPerformed
         // TODO add your handling code here:
+        
+        mediaPlayerComponent.getMediaPlayer().skip(5);
+
+        /*
+        float f = mediaPlayerComponent.getMediaPlayer().getPosition();
+        libvlc_state_t b = mediaPlayerComponent.getMediaPlayer().getMediaState();
+        System.out.println("B:" + b);
+        if (f > 0.4f) {    //&& libvlc_state_t.values().equals("")
+
+            float a = 0.3f;
+            mediaPlayerComponent.getMediaPlayer().setPosition(f - a);
+        }
+        
+        */
+
+
     }//GEN-LAST:event_AfterActionPerformed
+
+    private void rateSongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rateSongActionPerformed
+
+        String myRate = "";
+        if (rateM1.isSelected()) {
+            myRate = "1";
+        } else if (rateM2.isSelected()) {
+            myRate = "2";
+        } else if (rateM3.isSelected()) {
+            myRate = "3";
+        } else if (rateM4.isSelected()) {
+            myRate = "4";
+        } else if (rateM5.isSelected()) {
+            myRate = "5";
+        } else {
+            myRate = "X";
+
+        }
+
+        if (!myRate.equals("X")) {
+            connect_Server cUpMus = new connect_Server();
+
+            Track t = new Track();
+            t.setUsername(myU);
+            t.setTitle(jListMusic.getSelectedValue());
+            t.setRate(myRate);
+            t.setTag("SetRate");
+
+            JAXBObjectToXml xml_UpMus = new JAXBObjectToXml();
+
+            String 
+
+b = xml_UpMus.ConvertToXML(t, Track.class
+);
+
+            String a = cUpMus.connect(b);
+
+            if (!a.equals("FALSE")) {
+                JOptionPane.showMessageDialog(this, "Rate ", "Interface", 1);
+            } else {
+                JOptionPane.showMessageDialog(this, "Please select one rate (1-5) ", "Interface", 1);
+            }
+        }
+        rateM1.setSelected(false);
+        rateM2.setSelected(false);
+        rateM3.setSelected(false);
+        rateM4.setSelected(false);
+        rateM5.setSelected(false);
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rateSongActionPerformed
+
+    private void muteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_muteActionPerformed
+        mediaPlayerComponent.getMediaPlayer().mute();
+    }//GEN-LAST:event_muteActionPerformed
+
+    private void Stop2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Stop2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Stop2ActionPerformed
+
+    private void rateVideoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rateVideoActionPerformed
+        // TODO add your handling code here:
+
+        String myRate = "";
+        if (rateV1.isSelected()) {
+            myRate = "1";
+        } else if (rateV2.isSelected()) {
+            myRate = "2";
+        } else if (rateV3.isSelected()) {
+            myRate = "3";
+        } else if (rateV4.isSelected()) {
+            myRate = "4";
+        } else if (rateV5.isSelected()) {
+            myRate = "5";
+        } else {
+            myRate = "X";
+
+        }
+
+        if (!myRate.equals("X")) {
+            connect_Server cUpMus = new connect_Server();
+
+            Track t = new Track();
+            t.setUsername(myU);
+            t.setTitle(jListVideos.getSelectedValue());
+            t.setRate(myRate);
+            t.setTag("SetRateVideo");
+
+            JAXBObjectToXml xml_UpMus = new JAXBObjectToXml();
+
+            String 
+
+b = xml_UpMus.ConvertToXML(t, Track.class
+);
+
+            String a = cUpMus.connect(b);
+
+            if (!a.equals("FALSE")) {
+                JOptionPane.showMessageDialog(this, "Rate ", "Interface", 1);
+            } else {
+                JOptionPane.showMessageDialog(this, "Please select one rate (1-5) ", "Interface", 1);
+            }
+        }
+        rateV1.setSelected(false);
+        rateV2.setSelected(false);
+        rateV3.setSelected(false);
+        rateV4.setSelected(false);
+        rateV5.setSelected(false);
+
+    }//GEN-LAST:event_rateVideoActionPerformed
 
     /**
      * Main Interface
@@ -972,12 +1349,14 @@ private static byte[] readBytesFromFile(String filePath) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 
 
 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Interface.class
+
 .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
 
@@ -992,12 +1371,9 @@ private static byte[] readBytesFromFile(String filePath) {
     private javax.swing.JButton Before;
     private javax.swing.JButton Evaluate;
     private javax.swing.JButton Guess;
-    private javax.swing.JTextField S_album;
-    private javax.swing.JTextField S_artist;
-    private javax.swing.JTextField S_letter;
     private javax.swing.JTextField S_song;
     private javax.swing.JPanel ShowMedia;
-    private javax.swing.JButton Stop;
+    private javax.swing.JButton Stop2;
     private javax.swing.JButton addFriend_Button;
     private javax.swing.JButton addMusic;
     private javax.swing.JButton addVideo;
@@ -1005,6 +1381,7 @@ private static byte[] readBytesFromFile(String filePath) {
     private javax.swing.JButton deleteMusic;
     private javax.swing.JButton deleteVideo;
     private javax.swing.JRadioButton good;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JFrame jFrame2;
     private javax.swing.JInternalFrame jInternalFrame1;
@@ -1014,10 +1391,6 @@ private static byte[] readBytesFromFile(String filePath) {
     private javax.swing.JTextPane jTextPane2;
     private javax.swing.JTextPane jTextPane4;
     private javax.swing.JLabel lab_LyricsG;
-    private javax.swing.JLabel lab_album;
-    private javax.swing.JLabel lab_artist;
-    private javax.swing.JLabel lab_letter;
-    private javax.swing.JLabel lab_song;
     private javax.swing.JScrollPane letter_User;
     private javax.swing.JScrollPane listMusic;
     private javax.swing.JScrollPane listMusic2;
@@ -1025,6 +1398,7 @@ private static byte[] readBytesFromFile(String filePath) {
     private javax.swing.JButton modMetadata;
     private javax.swing.JButton modVideoMetadata;
     private javax.swing.JScrollPane musicPlaying;
+    private javax.swing.JButton mute;
     public static javax.swing.JLabel myUserName;
     private javax.swing.JButton playMusic;
     private javax.swing.JButton playVideo;

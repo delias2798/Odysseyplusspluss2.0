@@ -34,7 +34,6 @@ public class MetadataMusic extends javax.swing.JFrame {
 
         updateListM(myU);
 
-        //jComboBoxGenre.setSelectedIndex(7);
         setDefaultCloseOperation(MetadataMusic.DISPOSE_ON_CLOSE);
 
     }
@@ -181,7 +180,6 @@ public class MetadataMusic extends javax.swing.JFrame {
 
         }
 
-        //jComboBoxGenre.setSelectedIndex(7);
 
     }//GEN-LAST:event_SelectActionPerformed
 
