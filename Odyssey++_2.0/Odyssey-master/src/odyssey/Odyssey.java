@@ -8,28 +8,15 @@ import java.io.IOException;
  */
 public class Odyssey {
 
-    /** This method is mine
-     * 
-     * 
+    /** 
+     * Inicio del programa
      * @param args the command line arguments
-     * 
+     * @throws java.io.IOException
      */
-    public static void main(String[] args) throws IOException {
-        // TODO code application logic here
-       
+    public static void main(String[] args) throws IOException {      
         Login log = new Login();
         log.setResizable(false); 
         log.setLocationRelativeTo(null);
         log.setVisible(true);
-         /*
-        Interface inf = new Interface();
-        inf.setResizable(false); 
-        inf.setLocationRelativeTo(null);
-        inf.setVisible(true);
-       */
-        /*
-        SingIn singIn = new SingIn();
-        singIn.setVisible(true);
-*/
     }    
 }

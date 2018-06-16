@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package odyssey;
 
 import XMLconvert.JAXBObjectToXml;
@@ -11,7 +6,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
 /**
- *
+ * Ventana para la gestion de amigos
  * @author josek
  */
 public class ManagerFriend extends javax.swing.JFrame {
@@ -30,6 +25,10 @@ public class ManagerFriend extends javax.swing.JFrame {
         jLabel4.setVisible(false);
     }
 
+    /**
+     * Método para actualizar los amigos en lista
+     * @param us 
+     */
     public void updateFriend(String us) {
         DefaultListModel din = new DefaultListModel();
         User user_Update = new User();
@@ -172,6 +171,10 @@ public class ManagerFriend extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Método para eliminar un amigo
+     * @param evt 
+     */
     private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
         // TODO add your handling code here:
 
@@ -204,6 +207,10 @@ public class ManagerFriend extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButtonDeleteActionPerformed
 
+    /**
+     * Método para añadir amigos
+     * @param evt 
+     */
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
         // TODO add your handling code here:
         String s = jTextFriend.getText();

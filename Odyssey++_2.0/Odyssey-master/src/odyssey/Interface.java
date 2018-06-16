@@ -10,6 +10,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import static odyssey.Login.UserName;
 import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
 import uk.co.caprica.vlcj.discovery.NativeDiscovery;
 
@@ -19,6 +20,7 @@ import uk.co.caprica.vlcj.discovery.NativeDiscovery;
  * @author josek
  */
 public final class Interface extends javax.swing.JFrame {
+
     DefaultListModel din = new DefaultListModel();
     String musicMusic, filePath, myU;
     private EmbeddedMediaPlayerComponent mediaPlayerComponent;
@@ -47,7 +49,6 @@ public final class Interface extends javax.swing.JFrame {
         listMusic = new javax.swing.JScrollPane();
         jListMusic = new javax.swing.JList<>();
         addMusic = new javax.swing.JButton();
-        playerMusic = new javax.swing.JSlider();
         musicPlaying = new javax.swing.JScrollPane();
         jTextPane2 = new javax.swing.JTextPane();
         deleteMusic = new javax.swing.JButton();
@@ -77,8 +78,8 @@ public final class Interface extends javax.swing.JFrame {
         addFriend_Button = new javax.swing.JButton();
         update_User = new javax.swing.JButton();
         myUserName = new javax.swing.JLabel();
-        play = new javax.swing.JButton();
-        stop = new javax.swing.JButton();
+        playVideo = new javax.swing.JButton();
+        Before = new javax.swing.JButton();
         listMusic2 = new javax.swing.JScrollPane();
         jListVideos = new javax.swing.JList<>();
         addVideo = new javax.swing.JButton();
@@ -95,6 +96,9 @@ public final class Interface extends javax.swing.JFrame {
         rateV4 = new javax.swing.JRadioButton();
         rateV1 = new javax.swing.JRadioButton();
         rateV5 = new javax.swing.JRadioButton();
+        playMusic = new javax.swing.JButton();
+        Stop = new javax.swing.JButton();
+        After = new javax.swing.JButton();
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
@@ -135,11 +139,6 @@ public final class Interface extends javax.swing.JFrame {
             }
         });
         getContentPane().add(addMusic, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 12, 264, -1));
-
-        playerMusic.setBackground(new java.awt.Color(153, 255, 51));
-        playerMusic.setFont(new java.awt.Font("Dialog", 3, 24)); // NOI18N
-        playerMusic.setOpaque(false);
-        getContentPane().add(playerMusic, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 460, 595, -1));
 
         musicPlaying.setViewportView(jTextPane2);
 
@@ -293,21 +292,26 @@ public final class Interface extends javax.swing.JFrame {
         myUserName.setEnabled(false);
         getContentPane().add(myUserName, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 480, -1, -1));
 
-        play.setText("Play");
-        play.addMouseListener(new java.awt.event.MouseAdapter() {
+        playVideo.setText("Play Video");
+        playVideo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                playMouseClicked(evt);
+                playVideoMouseClicked(evt);
             }
         });
-        play.addActionListener(new java.awt.event.ActionListener() {
+        playVideo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                playActionPerformed(evt);
+                playVideoActionPerformed(evt);
             }
         });
-        getContentPane().add(play, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 420, 280, -1));
+        getContentPane().add(playVideo, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 450, 160, -1));
 
-        stop.setText("Stop");
-        getContentPane().add(stop, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 420, 280, -1));
+        Before.setText("Before");
+        Before.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BeforeActionPerformed(evt);
+            }
+        });
+        getContentPane().add(Before, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 420, 90, 60));
 
         jListVideos.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "dgdfg" };
@@ -449,6 +453,35 @@ public final class Interface extends javax.swing.JFrame {
         });
         getContentPane().add(rateV5, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 420, -1, -1));
 
+        playMusic.setText("Play Music");
+        playMusic.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                playMusicMouseClicked(evt);
+            }
+        });
+        playMusic.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                playMusicActionPerformed(evt);
+            }
+        });
+        getContentPane().add(playMusic, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 420, 160, -1));
+
+        Stop.setText("Stop");
+        Stop.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                StopActionPerformed(evt);
+            }
+        });
+        getContentPane().add(Stop, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 420, 140, 60));
+
+        After.setText("After");
+        After.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AfterActionPerformed(evt);
+            }
+        });
+        getContentPane().add(After, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 420, 90, 60));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -525,7 +558,7 @@ public final class Interface extends javax.swing.JFrame {
         fileChooser.setCurrentDirectory(new File("C:\\home\\josek\\Descargas"));///home/josek/Descargas
         fileChooser.setDialogTitle("Select Mp3");
         fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        fileChooser.setFileFilter(new FileNameExtensionFilter("Mp3 files", "mp3"));
+        fileChooser.setFileFilter(new FileNameExtensionFilter("Mp3 files", "mp3","mp4"));
         if (fileChooser.showOpenDialog(addMusic) == JFileChooser.APPROVE_OPTION) {
             //try {
             File myFile = fileChooser.getSelectedFile();
@@ -540,7 +573,30 @@ public final class Interface extends javax.swing.JFrame {
             din.addElement(musicMusic);
             jListMusic.setModel(din);
 
-            /*
+            String userName = UserName.getText();
+
+            Track tAdd = new Track();
+            JAXBObjectToXml xmlLogin = new JAXBObjectToXml();
+
+            tAdd.setUsername(userName);
+            tAdd.setTitle(musicMusic);
+            tAdd.setPath(filePath);
+            tAdd.setTag("Track");
+
+            String xml_string = xmlLogin.ConvertToXML(tAdd, Track.class);
+
+            System.out.println("!"+xml_string);
+
+            connect_Server s = new connect_Server();
+
+            String res = s.connect(xml_string);
+            System.out.println("?"+res);
+            if (!res.equals("TRUE")) {
+                 JOptionPane.showMessageDialog(this, "Error: ", "Music Up", 1);
+            } 
+        }
+
+        /*
                 
                 String absolutePath = myFile.getAbsolutePath();
                 String filePath1 = absolutePath.substring(0, absolutePath.lastIndexOf(File.separator));
@@ -584,16 +640,17 @@ public final class Interface extends javax.swing.JFrame {
                 Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
             }
                 
-             */
-        }
+         */
+    
     }//GEN-LAST:event_addMusicActionPerformed
 
-    /**
-     * Lector de bytes desde un archivo
-     * @param filePath
-     * @return 
-     */
-    private static byte[] readBytesFromFile(String filePath) {
+/**
+ * Lector de bytes desde un archivo
+ *
+ * @param filePath
+ * @return
+ */
+private static byte[] readBytesFromFile(String filePath) {
 
         FileInputStream fileInputStream = null;
         byte[] bytesArray = null;
@@ -621,7 +678,8 @@ public final class Interface extends javax.swing.JFrame {
 
     /**
      * Método para buscar una canción
-     * @param evt 
+     *
+     * @param evt
      */
     private void searchSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchSActionPerformed
         // TODO add your handling code here:
@@ -629,7 +687,8 @@ public final class Interface extends javax.swing.JFrame {
 
     /**
      * Método para evaluar #1
-     * @param evt 
+     *
+     * @param evt
      */
     private void mediumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mediumActionPerformed
         // TODO add your handling code here:
@@ -639,7 +698,8 @@ public final class Interface extends javax.swing.JFrame {
 
     /**
      * Método para evaluar #2
-     * @param evt 
+     *
+     * @param evt
      */
     private void badActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_badActionPerformed
         // TODO add your handling code here:
@@ -649,7 +709,8 @@ public final class Interface extends javax.swing.JFrame {
 
     /**
      * Método para evaluar #3
-     * @param evt 
+     *
+     * @param evt
      */
     private void goodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goodActionPerformed
         // TODO add your handling code here:
@@ -659,7 +720,8 @@ public final class Interface extends javax.swing.JFrame {
 
     /**
      * Acción para realizar la evaluación
-     * @param evt 
+     *
+     * @param evt
      */
     private void EvaluateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EvaluateActionPerformed
         // TODO add your handling code here:
@@ -678,7 +740,8 @@ public final class Interface extends javax.swing.JFrame {
 
     /**
      * Acción agregar un amigo
-     * @param evt 
+     *
+     * @param evt
      */
     private void addFriend_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addFriend_ButtonActionPerformed
         // TODO add your handling code here:
@@ -688,7 +751,8 @@ public final class Interface extends javax.swing.JFrame {
 
     /**
      * Acción para actualizar el usuario
-     * @param evt 
+     *
+     * @param evt
      */
     private void update_UserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_update_UserActionPerformed
         // TODO add your handling code here:
@@ -699,7 +763,8 @@ public final class Interface extends javax.swing.JFrame {
 
     /**
      * Método para clasificar canción #4
-     * @param evt 
+     *
+     * @param evt
      */
     private void rateM4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rateM4ActionPerformed
         // TODO add your handling code here:
@@ -711,7 +776,8 @@ public final class Interface extends javax.swing.JFrame {
 
     /**
      * Método para clasificar canción #3
-     * @param evt 
+     *
+     * @param evt
      */
     private void rateM3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rateM3ActionPerformed
         // TODO add your handling code here:
@@ -723,7 +789,8 @@ public final class Interface extends javax.swing.JFrame {
 
     /**
      * Método para clasificar canción #2
-     * @param evt 
+     *
+     * @param evt
      */
     private void rateM2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rateM2ActionPerformed
         // TODO add your handling code here:
@@ -735,7 +802,8 @@ public final class Interface extends javax.swing.JFrame {
 
     /**
      * Acción para abrir una nueva ventana -Metadata-
-     * @param evt 
+     *
+     * @param evt
      */
     private void modMetadataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modMetadataActionPerformed
         // TODO add your handling code here:
@@ -745,7 +813,8 @@ public final class Interface extends javax.swing.JFrame {
 
     /**
      * Acción para eliminar una canción--
-     * @param evt 
+     *
+     * @param evt
      */
     private void deleteMusicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteMusicActionPerformed
         // TODO add your handling code here:
@@ -753,7 +822,8 @@ public final class Interface extends javax.swing.JFrame {
 
     /**
      * Acción para añadir un video-
-     * @param evt 
+     *
+     * @param evt
      */
     private void addVideoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addVideoActionPerformed
         // TODO add your handling code here:
@@ -761,7 +831,8 @@ public final class Interface extends javax.swing.JFrame {
 
     /**
      * Acción para eliminar una video --
-     * @param evt 
+     *
+     * @param evt
      */
     private void deleteVideoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteVideoActionPerformed
         // TODO add your handling code here:
@@ -769,7 +840,8 @@ public final class Interface extends javax.swing.JFrame {
 
     /**
      * Acción para abrir una nueva ventana -MetadataVideo-
-     * @param evt 
+     *
+     * @param evt
      */
     private void modVideoMetadataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modVideoMetadataActionPerformed
         // TODO add your handling code here:
@@ -777,7 +849,8 @@ public final class Interface extends javax.swing.JFrame {
 
     /**
      * Método para clasificar canción #1
-     * @param evt 
+     *
+     * @param evt
      */
     private void rateM1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rateM1ActionPerformed
         // TODO add your handling code here:
@@ -785,7 +858,8 @@ public final class Interface extends javax.swing.JFrame {
 
     /**
      * Método para clasificar canción #5
-     * @param evt 
+     *
+     * @param evt
      */
     private void rateM5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rateM5ActionPerformed
         // TODO add your handling code here:
@@ -793,7 +867,8 @@ public final class Interface extends javax.swing.JFrame {
 
     /**
      * Método para clasificar videos #2
-     * @param evt 
+     *
+     * @param evt
      */
     private void rateV2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rateV2ActionPerformed
         // TODO add your handling code here:
@@ -801,7 +876,8 @@ public final class Interface extends javax.swing.JFrame {
 
     /**
      * Método para clasificar videos #3
-     * @param evt 
+     *
+     * @param evt
      */
     private void rateV3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rateV3ActionPerformed
         // TODO add your handling code here:
@@ -809,7 +885,8 @@ public final class Interface extends javax.swing.JFrame {
 
     /**
      * Método para clasificar videos #4
-     * @param evt 
+     *
+     * @param evt
      */
     private void rateV4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rateV4ActionPerformed
         // TODO add your handling code here:
@@ -817,7 +894,8 @@ public final class Interface extends javax.swing.JFrame {
 
     /**
      * Método para clasificar videos #1
-     * @param evt 
+     *
+     * @param evt
      */
     private void rateV1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rateV1ActionPerformed
         // TODO add your handling code here:
@@ -825,7 +903,8 @@ public final class Interface extends javax.swing.JFrame {
 
     /**
      * Método para clasificar videos #5
-     * @param evt 
+     *
+     * @param evt
      */
     private void rateV5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rateV5ActionPerformed
         // TODO add your handling code here:
@@ -833,40 +912,53 @@ public final class Interface extends javax.swing.JFrame {
 
     /**
      * Acción para rrealizar la reproducción -Streaming
-     * @param evt 
+     *
+     * @param evt
      */
-    private void playActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playActionPerformed
+    private void playVideoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playVideoActionPerformed
 
         if (!jListMusic.isSelectionEmpty() && !jListVideos.isSelectionEmpty()) {
             JOptionPane.showMessageDialog(this, "Please select an option to perform the rating", "Evaluate", 2);
 
         }
-    }//GEN-LAST:event_playActionPerformed
+    }//GEN-LAST:event_playVideoActionPerformed
 
     /**
      * Acción para reproducir canciones/videos-
-     * @param evt 
+     *
+     * @param evt
      */
-    private void playMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_playMouseClicked
-        // TODO add your handling code here:
-
-        //mediaPlayerComponent.release();
+    private void playVideoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_playVideoMouseClicked
+        mediaPlayerComponent= null;
         new NativeDiscovery().discover();
-
-        /*
-                ShowMedia.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                mediaPlayerComponent.release();
-                System.exit(0);
-            }
-        });*/
         mediaPlayerComponent = new EmbeddedMediaPlayerComponent();
         jInternalFrame1.setContentPane(mediaPlayerComponent);
         jInternalFrame1.setVisible(true);
         mediaPlayerComponent.getMediaPlayer().playMedia(filePath);
 
-    }//GEN-LAST:event_playMouseClicked
+    }//GEN-LAST:event_playVideoMouseClicked
+
+    private void BeforeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BeforeActionPerformed
+
+            mediaPlayerComponent.getMediaPlayer().pause();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BeforeActionPerformed
+
+    private void playMusicMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_playMusicMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_playMusicMouseClicked
+
+    private void playMusicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playMusicActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_playMusicActionPerformed
+
+    private void StopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StopActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_StopActionPerformed
+
+    private void AfterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AfterActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_AfterActionPerformed
 
     /**
      * Main Interface
@@ -880,10 +972,13 @@ public final class Interface extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-                }
+                
+
+}
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Interface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Interface.class
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
 
         java.awt.EventQueue.invokeLater(() -> {
@@ -893,6 +988,8 @@ public final class Interface extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton After;
+    private javax.swing.JButton Before;
     private javax.swing.JButton Evaluate;
     private javax.swing.JButton Guess;
     private javax.swing.JTextField S_album;
@@ -900,6 +997,7 @@ public final class Interface extends javax.swing.JFrame {
     private javax.swing.JTextField S_letter;
     private javax.swing.JTextField S_song;
     private javax.swing.JPanel ShowMedia;
+    private javax.swing.JButton Stop;
     private javax.swing.JButton addFriend_Button;
     private javax.swing.JButton addMusic;
     private javax.swing.JButton addVideo;
@@ -928,8 +1026,8 @@ public final class Interface extends javax.swing.JFrame {
     private javax.swing.JButton modVideoMetadata;
     private javax.swing.JScrollPane musicPlaying;
     public static javax.swing.JLabel myUserName;
-    private javax.swing.JButton play;
-    private javax.swing.JSlider playerMusic;
+    private javax.swing.JButton playMusic;
+    private javax.swing.JButton playVideo;
     private javax.swing.JRadioButton rateM1;
     private javax.swing.JRadioButton rateM2;
     private javax.swing.JRadioButton rateM3;
@@ -944,7 +1042,6 @@ public final class Interface extends javax.swing.JFrame {
     private javax.swing.JButton rateVideo;
     private javax.swing.JLabel search;
     private javax.swing.JButton searchS;
-    private javax.swing.JButton stop;
     private javax.swing.JButton update_User;
     // End of variables declaration//GEN-END:variables
 }
