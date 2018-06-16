@@ -16,15 +16,17 @@ public class Odyssey {
      */
     public static void main(String[] args) throws IOException {
         // TODO code application logic here
-        
+       
         Login log = new Login();
         log.setResizable(false); 
+        log.setLocationRelativeTo(null);
         log.setVisible(true);
-        
-        /*
+         /*
         Interface inf = new Interface();
+        inf.setResizable(false); 
+        inf.setLocationRelativeTo(null);
         inf.setVisible(true);
-        */
+       */
         /*
         SingIn singIn = new SingIn();
         singIn.setVisible(true);

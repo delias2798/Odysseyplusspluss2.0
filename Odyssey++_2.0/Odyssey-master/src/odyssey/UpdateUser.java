@@ -23,6 +23,7 @@ public class UpdateUser extends javax.swing.JFrame {
      */
     public UpdateUser() {
         initComponents();
+        setDefaultCloseOperation(MetadataMusic.DISPOSE_ON_CLOSE);
 
         String myU = Interface.myUserName.getText();
         jTextUserName1.setText(myU);
@@ -58,28 +59,59 @@ public class UpdateUser extends javax.swing.JFrame {
         
         for (int ind1 =0; ind1 < genresSpace.length;ind1++){
             
-            System.out.println("]> "+genresSpace[ind1]);
-            if(genresSpace[ind1].equals("1")){              rock.setSelected(true);             }
-            else if(genresSpace[ind1].equals("2")){                hiphop.setSelected(true);            }            
-            else if(genresSpace[ind1].equals("3")){                rockroll.setSelected(true);            }
-            else if(genresSpace[ind1].equals("4")){                balada.setSelected(true);            }            
-            else if(genresSpace[ind1].equals("5")){                pop.setSelected(true);            }
-            else if(genresSpace[ind1].equals("6")){                reggae.setSelected(true);            }            
-            else if(genresSpace[ind1].equals("7")){                rap.setSelected(true);            }
-            else if(genresSpace[ind1].equals("8")){                banda.setSelected(true);            }            
-            else if(genresSpace[ind1].equals("9")){                electro.setSelected(true);            }
-            else if(genresSpace[ind1].equals("10")){                bachata.setSelected(true);            }            
-            else if(genresSpace[ind1].equals("11")){                trashmetal.setSelected(true);            }
-            else if(genresSpace[ind1].equals("12")){                dance.setSelected(true);            }            
-            else if(genresSpace[ind1].equals("13")){                salsa.setSelected(true);            }
-            else if(genresSpace[ind1].equals("14")){                ska.setSelected(true);            }
-            else if(genresSpace[ind1].equals("15")){                jazz.setSelected(true);            }            
-            else if(genresSpace[ind1].equals("16")){                punk.setSelected(true);            }
-            else{
-                System.err.println("Mala divion del string/ genero no existente");
+            switch (genresSpace[ind1]) {
+                case "1":
+                    rock.setSelected(true);
+                    break;
+                case "2":
+                    hiphop.setSelected(true);
+                    break;
+                case "3":
+                    rockroll.setSelected(true);
+                    break;
+                case "4":
+                    balada.setSelected(true);
+                    break;
+                case "5":
+                    pop.setSelected(true);
+                    break;
+                case "6":
+                    reggae.setSelected(true);
+                    break;
+                case "7":
+                    rap.setSelected(true);
+                    break;
+                case "8":
+                    banda.setSelected(true);
+                    break;
+                case "9":
+                    electro.setSelected(true);
+                    break;
+                case "10":
+                    bachata.setSelected(true);
+                    break;
+                case "11":
+                    trashmetal.setSelected(true);
+                    break;
+                case "12":
+                    dance.setSelected(true);
+                    break;
+                case "13":
+                    salsa.setSelected(true);
+                    break;
+                case "14":
+                    ska.setSelected(true);
+                    break;
+                case "15":
+                    jazz.setSelected(true);
+                    break;
+                case "16":
+                    punk.setSelected(true);
+                    break;
+                default:
+                    System.err.println("Mala divion del string/ genero no existente");
+                    break;
             }
-            
-                  
         }
     }
     
@@ -129,55 +161,74 @@ public class UpdateUser extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 102));
         jPanel1.setFocusable(false);
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         pop.setBackground(new java.awt.Color(102, 102, 102));
         pop.setText("Pop");
+        jPanel1.add(pop, new org.netbeans.lib.awtextra.AbsoluteConstraints(111, 139, -1, -1));
 
         electro.setBackground(new java.awt.Color(102, 102, 102));
         electro.setText("Electroc");
+        jPanel1.add(electro, new org.netbeans.lib.awtextra.AbsoluteConstraints(196, 139, -1, -1));
 
         hiphop.setBackground(new java.awt.Color(102, 102, 102));
         hiphop.setText("Hip-Hop");
+        jPanel1.add(hiphop, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 162, -1, -1));
 
         reggae.setBackground(new java.awt.Color(102, 102, 102));
         reggae.setText("Reggae");
+        jPanel1.add(reggae, new org.netbeans.lib.awtextra.AbsoluteConstraints(111, 162, -1, -1));
 
         rockroll.setBackground(new java.awt.Color(102, 102, 102));
         rockroll.setText("Rock&Roll");
+        jPanel1.add(rockroll, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 189, -1, -1));
 
         bachata.setBackground(new java.awt.Color(102, 102, 102));
         bachata.setText("Bachata");
+        jPanel1.add(bachata, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 162, -1, -1));
 
         rap.setBackground(new java.awt.Color(102, 102, 102));
         rap.setText("Rap");
+        jPanel1.add(rap, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 189, -1, -1));
 
         trashmetal.setBackground(new java.awt.Color(102, 102, 102));
         trashmetal.setText("Trash Metal");
+        jPanel1.add(trashmetal, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 189, -1, -1));
 
         balada.setBackground(new java.awt.Color(102, 102, 102));
         balada.setText("Balada");
+        jPanel1.add(balada, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 212, -1, -1));
 
         passWord.setText("Password:");
+        jPanel1.add(passWord, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 253, -1, -1));
 
         banda.setBackground(new java.awt.Color(102, 102, 102));
         banda.setText("Banda");
+        jPanel1.add(banda, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 212, -1, -1));
 
         salsa.setBackground(new java.awt.Color(102, 102, 102));
         salsa.setText("Salsa");
+        jPanel1.add(salsa, new org.netbeans.lib.awtextra.AbsoluteConstraints(303, 139, -1, -1));
 
         dance.setBackground(new java.awt.Color(102, 102, 102));
         dance.setText("Dance");
+        jPanel1.add(dance, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 212, -1, -1));
 
         jazz.setBackground(new java.awt.Color(102, 102, 102));
         jazz.setText("Jazz");
+        jPanel1.add(jazz, new org.netbeans.lib.awtextra.AbsoluteConstraints(303, 189, -1, -1));
 
         ska.setBackground(new java.awt.Color(102, 102, 102));
         ska.setText("Ska");
+        jPanel1.add(ska, new org.netbeans.lib.awtextra.AbsoluteConstraints(303, 162, -1, -1));
+        jPanel1.add(jTextPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 274, 362, -1));
 
         punk.setBackground(new java.awt.Color(102, 102, 102));
         punk.setText("Punk");
+        jPanel1.add(punk, new org.netbeans.lib.awtextra.AbsoluteConstraints(303, 212, -1, -1));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("/home/josek/Escritorio/imagenes/create-new-user-icon-3234.png")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon("/home/josek/Escritorio/imagenes/update.png")); // NOI18N
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 300, -1, -1));
 
         buttonUpdate_User.setText("Update");
         buttonUpdate_User.addActionListener(new java.awt.event.ActionListener() {
@@ -185,15 +236,20 @@ public class UpdateUser extends javax.swing.JFrame {
                 buttonUpdate_UserActionPerformed(evt);
             }
         });
+        jPanel1.add(buttonUpdate_User, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 311, 123, -1));
 
         rock.setBackground(new java.awt.Color(102, 102, 102));
         rock.setText("Rock");
+        jPanel1.add(rock, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 139, -1, -1));
 
         userName.setText("User Name: ");
+        jPanel1.add(userName, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 12, -1, -1));
 
         fullName.setText("Name:");
+        jPanel1.add(fullName, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 58, -1, -1));
 
         age.setText("Age:");
+        jPanel1.add(age, new org.netbeans.lib.awtextra.AbsoluteConstraints(195, 12, -1, -1));
 
         jTextUserName1.setEditable(false);
         jTextUserName1.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -201,132 +257,22 @@ public class UpdateUser extends javax.swing.JFrame {
                 jTextUserName1KeyTyped(evt);
             }
         });
+        jPanel1.add(jTextUserName1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 33, 171, -1));
+        jPanel1.add(jTextName, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 79, 171, -1));
+        jPanel1.add(jTextAge, new org.netbeans.lib.awtextra.AbsoluteConstraints(195, 33, 149, -1));
 
         passWord1.setText("Genre: ");
+        jPanel1.add(passWord1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 116, -1, -1));
 
         fullName1.setText("Last Name:");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(buttonUpdate_User, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(passWord)
-                        .addComponent(jTextPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(passWord1)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(fullName)
-                                .addComponent(userName)
-                                .addComponent(jTextUserName1, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
-                                .addComponent(jTextName))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(age)
-                                .addComponent(fullName1)
-                                .addComponent(jTextLastName, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
-                                .addComponent(jTextAge)))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(hiphop)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(rock)
-                                    .addGap(41, 41, 41)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(pop)
-                                        .addComponent(reggae)))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(rockroll)
-                                        .addComponent(balada))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(banda)
-                                        .addComponent(rap))))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(trashmetal)
-                                .addComponent(bachata)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGap(2, 2, 2)
-                                    .addComponent(electro))
-                                .addComponent(dance))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(punk)
-                                .addComponent(salsa)
-                                .addComponent(ska)
-                                .addComponent(jazz)))))
-                .addContainerGap(21, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(userName)
-                    .addComponent(age))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextUserName1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextAge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(fullName)
-                    .addComponent(fullName1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextLastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(passWord1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rock)
-                    .addComponent(pop)
-                    .addComponent(electro)
-                    .addComponent(salsa))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(hiphop)
-                    .addComponent(reggae)
-                    .addComponent(bachata)
-                    .addComponent(ska))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rockroll)
-                    .addComponent(rap)
-                    .addComponent(trashmetal)
-                    .addComponent(jazz))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(balada)
-                    .addComponent(banda)
-                    .addComponent(dance)
-                    .addComponent(punk))
-                .addGap(18, 18, 18)
-                .addComponent(passWord)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(buttonUpdate_User)
-                    .addComponent(jLabel1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        jPanel1.add(fullName1, new org.netbeans.lib.awtextra.AbsoluteConstraints(195, 58, -1, -1));
+        jPanel1.add(jTextLastName, new org.netbeans.lib.awtextra.AbsoluteConstraints(195, 79, 149, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -439,11 +385,7 @@ public class UpdateUser extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+        
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -451,15 +393,11 @@ public class UpdateUser extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(UpdateUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(UpdateUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(UpdateUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(UpdateUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        
         //</editor-fold>
 
         /* Create and display the form */

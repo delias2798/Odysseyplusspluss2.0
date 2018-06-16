@@ -1,112 +1,157 @@
 package XMLconvert;
-import javax.xml.bind.annotation.XmlAttribute;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * Clase Usuario/User
+ *
+ * @author josek
+ */
 @XmlRootElement
 public class User {
-    private String username;
-    private String name;
-    private String last_name;
-    private String age;
-    private String pass;
-    private String like;
-    private String friends;
-    private String tag;
 
-    
-    public User(){}
-    
+    private String username, name, last_name, age, pass, like, friends, tag;
+
+    /**
+     * Constructor
+     */
+    public User() {
+    }
+
+    /**
+     * Obtiene el tag del User_xml 
+     * @return 
+     */
     @XmlElement
     public String getTag() {
         return tag;
     }
-    public void setTag(String tag) {
-        this.tag = tag;
-    }
 
+    /**
+     * Obtiene el username del User_xml 
+     * @return 
+     */
     @XmlElement
     public String getUsername() {
         return username;
     }
-    public void setUsername(String username) {
-        this.username = username;
-    }
 
+    /**
+     * Obtiene el nombre del User_xml 
+     * @return 
+     */
     @XmlElement
     public String getName() {
         return name;
     }
-    public void setName(String name) {
-        this.name = name;
-    }
 
+    /**
+     * Obtiene el apellido del User_xml 
+     * @return 
+     */
     @XmlElement
     public String getLastname() {
         return last_name;
     }
-    public void setLastname(String last_name) {
-        this.last_name = last_name;
-    }
 
+    /**
+     * Obtiene la edad del User_xml 
+     * @return 
+     */
     @XmlElement
     public String getAge() {
         return age;
     }
-    public void setAge(String age) {
-        this.age = age;
-    }
 
+    /**
+     * Obtiene la contraseña del User_xml 
+     * @return 
+     */
     @XmlElement
     public String getPass() {
         return pass;
     }
-    public void setPass(String pass) {
-        this.pass = pass;
-    }
 
+    /**
+     * Obtiene los gustos/generos del User_xml 
+     * @return 
+     */
     @XmlElement
     public String getLike() {
         return like;
     }
-    public void setLike(String like) {
-        this.like = like;
-    }
 
+    /**
+     * Obtiene los amigos del User_xml 
+     * @return 
+     */
     @XmlElement
     public String getFriends() {
         return friends;
     }
+
+    /**
+     * Asigna los amigos del User_xml 
+     * @param friends
+     */
     public void setFriends(String friends) {
         this.friends = friends;
     }
 
-
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "username=" + username +
-                ", name='" + name + "'" +
-                ", last_name='" + last_name + "'" +
-                ", age='" + age + "'" +
-                ", pass='" + pass + "'" +
-                ", like='" + like + "'" +
-                ", friend='" + friends + "'" +
-                "}";
-    }
-    //out
-    /*
-    <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-    <user username="edd">
-        <age>22</age>
-        <friends>No tengo</friends>
-        <lastname>Solano</lastname>
-        <like>Any</like>
-        <name>Eduardo</name>
-        <pass>123456</pass>
-    </user>
+    /**
+     * Asigna el tag del User_xml 
+     * @param tag 
      */
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
 
+    /**
+     * Asigna los gustos/generos del User_xml 
+     * @param like 
+     */
+    public void setLike(String like) {
+        this.like = like;
+    }
 
+    /**
+     * Asigna la contraseña del User_xml 
+     * @param pass
+     */
+    public void setPass(String pass) {
+        this.pass = pass;
+    }
+
+    /**
+     * Asigna la edad del User_xml 
+     * @param age 
+     */
+    public void setAge(String age) {
+        this.age = age;
+    }
+
+    /**
+     * Asigna el apellido del User_xml 
+     * @param last_name 
+     */
+    public void setLastname(String last_name) {
+        this.last_name = last_name;
+    }
+
+    /**
+     * Asigna el nombre del User_xml 
+     * @param name 
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * Asigna el username del User_xml 
+     * @param username 
+     */
+    public void setUsername(String username) {
+        this.username = username;
+    }
 }

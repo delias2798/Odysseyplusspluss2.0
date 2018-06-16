@@ -1,66 +1,61 @@
 package odyssey;
 
 import XMLconvert.JAXBObjectToXml;
-import XMLconvert.User;
+import XMLconvert.Track;
 import java.awt.Color;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.ListModel;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
+import uk.co.caprica.vlcj.discovery.NativeDiscovery;
 
 /**
+ * Ventan principal de uso
  *
  * @author josek
  */
-public class Interface extends javax.swing.JFrame {
+public final class Interface extends javax.swing.JFrame {
+    DefaultListModel din = new DefaultListModel();
+    String musicMusic, filePath, myU;
+    private EmbeddedMediaPlayerComponent mediaPlayerComponent;
 
     /**
-     * Creates new form Interface
+     * Creación de la ventana y su llamado
      */
     public Interface() {
         initComponents();
-        setDefaultCloseOperation(Metadata.DISPOSE_ON_CLOSE);
-        String myU = Login.UserName.getText();
+        myUserName.setVisible(false);
+        this.getContentPane().setBackground(Color.gray);
+        setDefaultCloseOperation(MetadataMusic.DISPOSE_ON_CLOSE);
+        myU = Login.UserName.getText();
         myUserName.setText(myU);
-        this.getContentPane().setBackground(Color.WHITE);
 
-        //
+        updateListM(myU);
+
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jFrame1 = new javax.swing.JFrame();
+        jFrame2 = new javax.swing.JFrame();
         listMusic = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        jListMusic = new javax.swing.JList<>();
         addMusic = new javax.swing.JButton();
         playerMusic = new javax.swing.JSlider();
-        equalizer = new javax.swing.JScrollPane();
-        jTextPane1 = new javax.swing.JTextPane();
         musicPlaying = new javax.swing.JScrollPane();
         jTextPane2 = new javax.swing.JTextPane();
-        sortName = new javax.swing.JButton();
-        sortAuthor = new javax.swing.JButton();
-        sortAlbum = new javax.swing.JButton();
-        sortBy = new javax.swing.JLabel();
         deleteMusic = new javax.swing.JButton();
-        choiceMusic = new java.awt.Choice();
         modMetadata = new javax.swing.JButton();
         rateSong = new javax.swing.JButton();
-        rate1 = new javax.swing.JRadioButton();
-        rate2 = new javax.swing.JRadioButton();
-        rate3 = new javax.swing.JRadioButton();
-        rate4 = new javax.swing.JRadioButton();
-        rate5 = new javax.swing.JRadioButton();
+        rateM2 = new javax.swing.JRadioButton();
+        rateM3 = new javax.swing.JRadioButton();
+        rateM4 = new javax.swing.JRadioButton();
         search = new javax.swing.JLabel();
         searchS = new javax.swing.JButton();
         lab_song = new javax.swing.JLabel();
@@ -80,422 +75,530 @@ public class Interface extends javax.swing.JFrame {
         medium = new javax.swing.JRadioButton();
         bad = new javax.swing.JRadioButton();
         addFriend_Button = new javax.swing.JButton();
-        myUserName = new javax.swing.JLabel();
         update_User = new javax.swing.JButton();
+        myUserName = new javax.swing.JLabel();
+        play = new javax.swing.JButton();
+        stop = new javax.swing.JButton();
+        listMusic2 = new javax.swing.JScrollPane();
+        jListVideos = new javax.swing.JList<>();
+        addVideo = new javax.swing.JButton();
+        deleteVideo = new javax.swing.JButton();
+        modVideoMetadata = new javax.swing.JButton();
+        rateVideo = new javax.swing.JButton();
+        rateM1 = new javax.swing.JRadioButton();
+        rateM5 = new javax.swing.JRadioButton();
+        jSeparator1 = new javax.swing.JSeparator();
+        ShowMedia = new javax.swing.JPanel();
+        jInternalFrame1 = new javax.swing.JInternalFrame();
+        rateV2 = new javax.swing.JRadioButton();
+        rateV3 = new javax.swing.JRadioButton();
+        rateV4 = new javax.swing.JRadioButton();
+        rateV1 = new javax.swing.JRadioButton();
+        rateV5 = new javax.swing.JRadioButton();
+
+        javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
+        jFrame1.getContentPane().setLayout(jFrame1Layout);
+        jFrame1Layout.setHorizontalGroup(
+            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        jFrame1Layout.setVerticalGroup(
+            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jFrame2Layout = new javax.swing.GroupLayout(jFrame2.getContentPane());
+        jFrame2.getContentPane().setLayout(jFrame2Layout);
+        jFrame2Layout.setHorizontalGroup(
+            jFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        jFrame2Layout.setVerticalGroup(
+            jFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(255, 102, 102));
+        setBackground(new java.awt.Color(255, 255, 255));
+        setMinimumSize(new java.awt.Dimension(1170, 495));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        listMusic.setViewportView(jList1);
+        listMusic.setViewportView(jListMusic);
 
+        getContentPane().add(listMusic, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 264, 107));
+
+        addMusic.setBackground(new java.awt.Color(153, 255, 153));
         addMusic.setText("Add Music");
         addMusic.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addMusicActionPerformed(evt);
             }
         });
+        getContentPane().add(addMusic, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 12, 264, -1));
 
-        equalizer.setViewportView(jTextPane1);
+        playerMusic.setBackground(new java.awt.Color(153, 255, 51));
+        playerMusic.setFont(new java.awt.Font("Dialog", 3, 24)); // NOI18N
+        playerMusic.setOpaque(false);
+        getContentPane().add(playerMusic, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 460, 595, -1));
 
         musicPlaying.setViewportView(jTextPane2);
 
-        sortName.setText("Name");
-        sortName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sortNameActionPerformed(evt);
-            }
-        });
+        getContentPane().add(musicPlaying, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 340, 595, 70));
 
-        sortAuthor.setText("Author");
-        sortAuthor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sortAuthorActionPerformed(evt);
-            }
-        });
-
-        sortAlbum.setText("Album");
-        sortAlbum.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sortAlbumActionPerformed(evt);
-            }
-        });
-
-        sortBy.setText("Sort By:");
-
+        deleteMusic.setBackground(new java.awt.Color(204, 255, 204));
         deleteMusic.setText("Delete");
         deleteMusic.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteMusicActionPerformed(evt);
             }
         });
+        getContentPane().add(deleteMusic, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, -1, -1));
 
+        modMetadata.setBackground(new java.awt.Color(204, 255, 204));
         modMetadata.setText("Modify metadata");
         modMetadata.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 modMetadataActionPerformed(evt);
             }
         });
+        getContentPane().add(modMetadata, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, -1, -1));
 
+        rateSong.setBackground(new java.awt.Color(204, 255, 204));
         rateSong.setText("Rate Song");
+        getContentPane().add(rateSong, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 264, -1));
 
-        rate1.setText("1");
-        rate1.addActionListener(new java.awt.event.ActionListener() {
+        rateM2.setBackground(new java.awt.Color(153, 153, 153));
+        rateM2.setText("2");
+        rateM2.setOpaque(false);
+        rateM2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rate1ActionPerformed(evt);
+                rateM2ActionPerformed(evt);
             }
         });
+        getContentPane().add(rateM2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, -1, -1));
 
-        rate2.setText("2");
-        rate2.addActionListener(new java.awt.event.ActionListener() {
+        rateM3.setBackground(new java.awt.Color(153, 153, 153));
+        rateM3.setText("3");
+        rateM3.setOpaque(false);
+        rateM3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rate2ActionPerformed(evt);
+                rateM3ActionPerformed(evt);
             }
         });
+        getContentPane().add(rateM3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180, -1, -1));
 
-        rate3.setText("3");
-        rate3.addActionListener(new java.awt.event.ActionListener() {
+        rateM4.setText("4");
+        rateM4.setOpaque(false);
+        rateM4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rate3ActionPerformed(evt);
+                rateM4ActionPerformed(evt);
             }
         });
-
-        rate4.setText("4");
-        rate4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rate4ActionPerformed(evt);
-            }
-        });
-
-        rate5.setText("5");
-        rate5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rate5ActionPerformed(evt);
-            }
-        });
+        getContentPane().add(rateM4, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 180, -1, -1));
 
         search.setText("Search________________________________");
+        getContentPane().add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(899, 12, 245, -1));
 
+        searchS.setBackground(new java.awt.Color(204, 255, 204));
         searchS.setText("Search");
         searchS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchSActionPerformed(evt);
             }
         });
+        getContentPane().add(searchS, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 150, 250, -1));
 
         lab_song.setText("Song :");
+        getContentPane().add(lab_song, new org.netbeans.lib.awtextra.AbsoluteConstraints(899, 41, 54, -1));
+        getContentPane().add(S_song, new org.netbeans.lib.awtextra.AbsoluteConstraints(971, 39, 168, -1));
 
         lab_artist.setText("Artist :");
+        getContentPane().add(lab_artist, new org.netbeans.lib.awtextra.AbsoluteConstraints(899, 66, 64, -1));
+        getContentPane().add(S_artist, new org.netbeans.lib.awtextra.AbsoluteConstraints(971, 64, 168, -1));
 
         lab_album.setText("Album :");
+        getContentPane().add(lab_album, new org.netbeans.lib.awtextra.AbsoluteConstraints(899, 91, -1, -1));
+        getContentPane().add(S_album, new org.netbeans.lib.awtextra.AbsoluteConstraints(969, 89, 168, -1));
 
         lab_letter.setText("Letter :");
+        getContentPane().add(lab_letter, new org.netbeans.lib.awtextra.AbsoluteConstraints(899, 116, 64, -1));
+        getContentPane().add(S_letter, new org.netbeans.lib.awtextra.AbsoluteConstraints(969, 114, 168, -1));
 
         lab_LyricsG.setText("Lyrics guessing______________________");
+        getContentPane().add(lab_LyricsG, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 300, -1, -1));
 
+        Guess.setBackground(new java.awt.Color(255, 255, 153));
         Guess.setText("Guess ");
+        getContentPane().add(Guess, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 360, 250, -1));
 
+        Evaluate.setBackground(new java.awt.Color(255, 255, 204));
         Evaluate.setText("Evaluate ");
         Evaluate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EvaluateActionPerformed(evt);
             }
         });
+        getContentPane().add(Evaluate, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 420, 250, -1));
 
         letter_User.setViewportView(jTextPane4);
 
+        getContentPane().add(letter_User, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 330, 250, -1));
+
         good.setText("Good");
+        good.setOpaque(false);
         good.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 goodActionPerformed(evt);
             }
         });
+        getContentPane().add(good, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 390, -1, -1));
 
         medium.setText("Medium");
+        medium.setOpaque(false);
         medium.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mediumActionPerformed(evt);
             }
         });
+        getContentPane().add(medium, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 390, -1, -1));
 
         bad.setText("Bad");
+        bad.setOpaque(false);
         bad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 badActionPerformed(evt);
             }
         });
+        getContentPane().add(bad, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 390, -1, -1));
 
+        addFriend_Button.setBackground(new java.awt.Color(204, 255, 204));
         addFriend_Button.setText("Add_friends");
         addFriend_Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addFriend_ButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(addFriend_Button, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 210, 250, -1));
 
-        myUserName.setText("User : XX");
-
+        update_User.setBackground(new java.awt.Color(204, 255, 204));
         update_User.setText("Update User");
         update_User.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 update_UserActionPerformed(evt);
             }
         });
+        getContentPane().add(update_User, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 240, 250, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(listMusic)
-                            .addComponent(addMusic, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(choiceMusic, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 8, Short.MAX_VALUE)
-                                .addComponent(sortName)
-                                .addGap(12, 12, 12)
-                                .addComponent(sortAuthor)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(sortAlbum)
-                                .addGap(7, 7, 7))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(rate1)
-                                .addGap(18, 18, 18)
-                                .addComponent(rate2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(rate5)
-                                .addGap(10, 10, 10))
-                            .addComponent(letter_User)
-                            .addComponent(rateSong, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(sortBy)
-                                    .addComponent(lab_LyricsG)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(deleteMusic)
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(12, 12, 12)
-                                                .addComponent(rate3)
-                                                .addGap(26, 26, 26)
-                                                .addComponent(rate4))
-                                            .addComponent(modMetadata))))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(Guess, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(Evaluate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(good)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(medium)
-                                .addGap(35, 35, 35)
-                                .addComponent(bad)
-                                .addGap(11, 11, 11)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(playerMusic, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(musicPlaying, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(equalizer, javax.swing.GroupLayout.PREFERRED_SIZE, 595, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(searchS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(lab_song, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(lab_artist, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addGap(8, 8, 8)))
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(S_artist, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(S_song, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(10, 10, 10))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(lab_letter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addGap(6, 6, 6)
-                                                .addComponent(S_letter, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(lab_album, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(S_album, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGap(12, 12, 12))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE)))
-                                .addContainerGap())
-                            .addComponent(addFriend_Button, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(update_User, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(myUserName)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+        myUserName.setText("User : XX");
+        myUserName.setEnabled(false);
+        getContentPane().add(myUserName, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 480, -1, -1));
+
+        play.setText("Play");
+        play.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                playMouseClicked(evt);
+            }
+        });
+        play.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                playActionPerformed(evt);
+            }
+        });
+        getContentPane().add(play, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 420, 280, -1));
+
+        stop.setText("Stop");
+        getContentPane().add(stop, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 420, 280, -1));
+
+        jListVideos.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "dgdfg" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        listMusic2.setViewportView(jListVideos);
+
+        getContentPane().add(listMusic2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 264, 107));
+
+        addVideo.setBackground(new java.awt.Color(255, 102, 102));
+        addVideo.setText("Add Video");
+        addVideo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addVideoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(addVideo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 264, -1));
+
+        deleteVideo.setBackground(new java.awt.Color(255, 153, 153));
+        deleteVideo.setText("Delete");
+        deleteVideo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteVideoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(deleteVideo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, -1, -1));
+
+        modVideoMetadata.setBackground(new java.awt.Color(255, 153, 153));
+        modVideoMetadata.setText("Modify metadata");
+        modVideoMetadata.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modVideoMetadataActionPerformed(evt);
+            }
+        });
+        getContentPane().add(modVideoMetadata, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 390, -1, -1));
+
+        rateVideo.setBackground(new java.awt.Color(255, 204, 204));
+        rateVideo.setText("Rate Video");
+        getContentPane().add(rateVideo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, 264, -1));
+
+        rateM1.setBackground(new java.awt.Color(153, 153, 153));
+        rateM1.setText("1");
+        rateM1.setOpaque(false);
+        rateM1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rateM1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(rateM1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, -1, -1));
+
+        rateM5.setText("5");
+        rateM5.setOpaque(false);
+        rateM5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rateM5ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(rateM5, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 180, -1, -1));
+        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 280, 10));
+
+        ShowMedia.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 51, 51)));
+
+        jInternalFrame1.setVisible(true);
+
+        javax.swing.GroupLayout jInternalFrame1Layout = new javax.swing.GroupLayout(jInternalFrame1.getContentPane());
+        jInternalFrame1.getContentPane().setLayout(jInternalFrame1Layout);
+        jInternalFrame1Layout.setHorizontalGroup(
+            jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 576, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(addMusic)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(sortBy)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(sortName, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(sortAlbum, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(sortAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(listMusic, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(choiceMusic, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(deleteMusic)
-                            .addComponent(modMetadata))
-                        .addGap(8, 8, 8)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(rate1)
-                            .addComponent(rate2)
-                            .addComponent(rate3)
-                            .addComponent(rate4)
-                            .addComponent(rate5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(rateSong)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lab_LyricsG)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(letter_User, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Guess)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(good)
-                            .addComponent(medium)
-                            .addComponent(bad))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Evaluate))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(search)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lab_song)
-                            .addComponent(S_song, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lab_artist)
-                            .addComponent(S_artist, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lab_album)
-                            .addComponent(S_album, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lab_letter)
-                            .addComponent(S_letter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(searchS)
-                        .addGap(48, 48, 48)
-                        .addComponent(addFriend_Button)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(update_User))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(equalizer, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(musicPlaying, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(playerMusic, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(myUserName)
-                .addContainerGap(34, Short.MAX_VALUE))
+        jInternalFrame1Layout.setVerticalGroup(
+            jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 284, Short.MAX_VALUE)
         );
+
+        javax.swing.GroupLayout ShowMediaLayout = new javax.swing.GroupLayout(ShowMedia);
+        ShowMedia.setLayout(ShowMediaLayout);
+        ShowMediaLayout.setHorizontalGroup(
+            ShowMediaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 586, Short.MAX_VALUE)
+            .addGroup(ShowMediaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jInternalFrame1, javax.swing.GroupLayout.Alignment.TRAILING))
+        );
+        ShowMediaLayout.setVerticalGroup(
+            ShowMediaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 316, Short.MAX_VALUE)
+            .addGroup(ShowMediaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jInternalFrame1, javax.swing.GroupLayout.Alignment.TRAILING))
+        );
+
+        getContentPane().add(ShowMedia, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 10, 590, 320));
+
+        rateV2.setBackground(new java.awt.Color(153, 153, 153));
+        rateV2.setText("2");
+        rateV2.setOpaque(false);
+        rateV2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rateV2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(rateV2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 420, -1, -1));
+
+        rateV3.setBackground(new java.awt.Color(153, 153, 153));
+        rateV3.setText("3");
+        rateV3.setOpaque(false);
+        rateV3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rateV3ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(rateV3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 420, -1, -1));
+
+        rateV4.setText("4");
+        rateV4.setOpaque(false);
+        rateV4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rateV4ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(rateV4, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 420, -1, -1));
+
+        rateV1.setBackground(new java.awt.Color(153, 153, 153));
+        rateV1.setText("1");
+        rateV1.setOpaque(false);
+        rateV1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rateV1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(rateV1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 420, -1, -1));
+
+        rateV5.setText("5");
+        rateV5.setOpaque(false);
+        rateV5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rateV5ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(rateV5, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 420, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void sortNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sortNameActionPerformed
-        // TODO add your handling code here:
-        JOptionPane.showMessageDialog(this, "Sort by Name", "Odyssey", 2);
+    /**
+     * Actualiza la lista de musica
+     *
+     * @param na
+     */
+    public void updateListM(String na) {
+        connect_Server cUpMus = new connect_Server();
 
-    }//GEN-LAST:event_sortNameActionPerformed
+        Track t = new Track();
+        t.setUsername(na);
+        t.setTag("NeedAllTracks");
 
-    private void sortAuthorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sortAuthorActionPerformed
-        // TODO add your handling code here:
-        JOptionPane.showMessageDialog(this, "Sort by Author", "Odyssey", 2);
-    }//GEN-LAST:event_sortAuthorActionPerformed
+        JAXBObjectToXml xml_UpMus = new JAXBObjectToXml();
 
-    private void sortAlbumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sortAlbumActionPerformed
-        // TODO add your handling code here:
-        JOptionPane.showMessageDialog(this, "Sort by Album", "Odyssey", 2);
-    }//GEN-LAST:event_sortAlbumActionPerformed
+        String b = xml_UpMus.ConvertToXML(t, Track.class);
 
+        String a = cUpMus.connect(b);
+
+        System.out.println("Edd: " + a);
+        ListTrack(a);
+    }
+
+    /**
+     * Organiza la lista de pistas/canciones
+     *
+     * @param xml_string
+     */
+    public void ListTrack(String xml_string) {
+        din.clear();
+
+        Track track = new Track();
+        String findS = "<track>";
+        String findE = "</track>";
+        String track_;
+        JAXBObjectToXml xml = new JAXBObjectToXml();
+        int s;
+        int e;
+
+        s = xml_string.indexOf("<list>");
+        e = xml_string.indexOf("</list>");
+        System.out.println(s + "   " + e);
+        if (s > 0) {
+            xml_string = xml_string.substring(s + "<list>".length(), e);
+
+            while (xml_string.length() != 0) {
+                s = xml_string.indexOf(findS);
+                e = xml_string.indexOf(findE);
+                track_ = xml_string.substring(s, e + findE.length());
+
+                xml_string = xml_string.substring(e + findE.length(), xml_string.length());
+
+                track = xml.ConvertToTrack(track_);
+
+                din.addElement(track.getTitle());
+                System.out.println(track.getTitle());
+            }
+        }
+
+        jListMusic.setModel(din);
+        //din.clear();
+
+    }
+
+    /**
+     * Acción para agregar una canción
+     *
+     * @param evt
+     */
     private void addMusicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addMusicActionPerformed
-        // TODO add your handling code here:
-        DefaultListModel din = new DefaultListModel();
-
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setCurrentDirectory(new File("C:\\home\\josek\\Descargas"));///home/josek/Descargas
         fileChooser.setDialogTitle("Select Mp3");
         fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         fileChooser.setFileFilter(new FileNameExtensionFilter("Mp3 files", "mp3"));
         if (fileChooser.showOpenDialog(addMusic) == JFileChooser.APPROVE_OPTION) {
-            try {
-                File myFile = fileChooser.getSelectedFile();
-                String filename = fileChooser.getSelectedFile().getName();
-                String filePath = fileChooser.getSelectedFile().getPath();
+            //try {
+            File myFile = fileChooser.getSelectedFile();
+            String filename = fileChooser.getSelectedFile().getName();
+            filePath = fileChooser.getSelectedFile().getPath();
 
-                System.out.println(filename);
-                din.addElement(filename);
-                jList1.setModel(din);
+            System.out.println(filePath);
 
-                System.out.println(filePath);
-                //try {
+            musicMusic = filename.substring(0, filename.length() - 4);
+            System.out.println(": Name : " + musicMusic);
+
+            din.addElement(musicMusic);
+            jListMusic.setModel(din);
+
+            /*
+                
                 String absolutePath = myFile.getAbsolutePath();
                 String filePath1 = absolutePath.substring(0, absolutePath.lastIndexOf(File.separator));
-                System.out.println(filePath1);
                 // convert file to byte[]
-                byte[] bFile = readBytesFromFile(filePath1 + filePath);
+                byte[] bFile;
+                bFile = readBytesFromFile(filePath);
+
+                File file = new File(filePath);
+
+                FileInputStream fis = new FileInputStream(file);
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                byte[] buf = new byte[1024];
+                try {
+                    for (int readNum; (readNum = fis.read(buf)) != -1;) {
+                        bos.write(buf, 0, readNum); //no doubt here is 0
+                        System.out.println("read " + readNum + " bytes,");
+                    }
+                } catch (IOException ex) {
+                    Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                byte[] bytes = bos.toByteArray();
+
+                System.out.println("My Size > " + bytes.length);
+
+                //below is the different part
+                File someFile = new File("java2.mp3");
+                try (FileOutputStream fos = new FileOutputStream(someFile)) {
+                    fos.write(bytes);
+
+                    fos.flush();
+                }
 
                 // save byte[] into a file
-                Path path = Paths.get("C:\\home\\josek\\test2.txt");
-                Files.write(path, bFile);
+                Path path = Paths.get("/home/josek/test2.jpeg");
+                Files.write(path, bytes);
 
-                System.out.println("Done");
-
-                //Print bytes[]
-                for (int i = 0; i < bFile.length; i++) {
-                    System.out.print((char) bFile[i]);
-                }
+                connect_Server c = new connect_Server();
+                c.connect2(bytes);
 
             } catch (IOException ex) {
                 Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
             }
-
+                
+             */
         }
     }//GEN-LAST:event_addMusicActionPerformed
 
-    private void deleteMusicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteMusicActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_deleteMusicActionPerformed
-
-    private void modMetadataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modMetadataActionPerformed
-        // TODO add your handling code here:
-        Metadata metadata = new Metadata();
-        metadata.setVisible(true);
-    }//GEN-LAST:event_modMetadataActionPerformed
-
+    /**
+     * Lector de bytes desde un archivo
+     * @param filePath
+     * @return 
+     */
     private static byte[] readBytesFromFile(String filePath) {
 
         FileInputStream fileInputStream = null;
         byte[] bytesArray = null;
 
         try {
-
             File file = new File(filePath);
             bytesArray = new byte[(int) file.length()];
             fileInputStream = new FileInputStream(file);
@@ -516,79 +619,56 @@ public class Interface extends javax.swing.JFrame {
 
     }
 
+    /**
+     * Método para buscar una canción
+     * @param evt 
+     */
     private void searchSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchSActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_searchSActionPerformed
 
+    /**
+     * Método para evaluar #1
+     * @param evt 
+     */
     private void mediumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mediumActionPerformed
         // TODO add your handling code here:
         bad.setSelected(false);
         good.setSelected(false);
     }//GEN-LAST:event_mediumActionPerformed
 
+    /**
+     * Método para evaluar #2
+     * @param evt 
+     */
     private void badActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_badActionPerformed
         // TODO add your handling code here:
         medium.setSelected(false);
         good.setSelected(false);
     }//GEN-LAST:event_badActionPerformed
 
-    private void rate1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rate1ActionPerformed
-        // TODO add your handling code here:
-        rate2.setSelected(false);
-        rate3.setSelected(false);
-        rate4.setSelected(false);
-        rate5.setSelected(false);
-    }//GEN-LAST:event_rate1ActionPerformed
-
-    private void rate2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rate2ActionPerformed
-        // TODO add your handling code here:
-        rate1.setSelected(false);
-        rate3.setSelected(false);
-        rate4.setSelected(false);
-        rate5.setSelected(false);
-    }//GEN-LAST:event_rate2ActionPerformed
-
-    private void rate3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rate3ActionPerformed
-        // TODO add your handling code here:
-        rate1.setSelected(false);
-        rate2.setSelected(false);
-        rate4.setSelected(false);
-        rate5.setSelected(false);
-    }//GEN-LAST:event_rate3ActionPerformed
-
-    private void rate4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rate4ActionPerformed
-        // TODO add your handling code here:
-        rate1.setSelected(false);
-        rate2.setSelected(false);
-        rate3.setSelected(false);
-        rate5.setSelected(false);
-
-    }//GEN-LAST:event_rate4ActionPerformed
-
-    private void rate5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rate5ActionPerformed
-        // TODO add your handling code here:
-        rate1.setSelected(false);
-        rate2.setSelected(false);
-        rate3.setSelected(false);
-        rate4.setSelected(false);
-    }//GEN-LAST:event_rate5ActionPerformed
-
+    /**
+     * Método para evaluar #3
+     * @param evt 
+     */
     private void goodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goodActionPerformed
         // TODO add your handling code here:
         medium.setSelected(false);
         bad.setSelected(false);
     }//GEN-LAST:event_goodActionPerformed
 
+    /**
+     * Acción para realizar la evaluación
+     * @param evt 
+     */
     private void EvaluateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EvaluateActionPerformed
         // TODO add your handling code here:
         if (good.isSelected()) {
-
             good.setSelected(false);
         } else if (medium.isSelected()) {
 
             medium.setSelected(false);
         } else if (bad.isSelected()) {
-
             bad.setSelected(false);
         } else {
             JOptionPane.showMessageDialog(this, "Please select an option to perform the rating", "Evaluate", 2);
@@ -596,18 +676,201 @@ public class Interface extends javax.swing.JFrame {
 
     }//GEN-LAST:event_EvaluateActionPerformed
 
+    /**
+     * Acción agregar un amigo
+     * @param evt 
+     */
     private void addFriend_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addFriend_ButtonActionPerformed
         // TODO add your handling code here:
+        ManagerFriend manF = new ManagerFriend();
+        manF.setVisible(true);
     }//GEN-LAST:event_addFriend_ButtonActionPerformed
 
+    /**
+     * Acción para actualizar el usuario
+     * @param evt 
+     */
     private void update_UserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_update_UserActionPerformed
         // TODO add your handling code here:
         UpdateUser us = new UpdateUser();
         us.setVisible(true);
-        
+
     }//GEN-LAST:event_update_UserActionPerformed
 
     /**
+     * Método para clasificar canción #4
+     * @param evt 
+     */
+    private void rateM4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rateM4ActionPerformed
+        // TODO add your handling code here:
+        rateM1.setSelected(false);
+        rateM2.setSelected(false);
+        rateM3.setSelected(false);
+        rateM5.setSelected(false);
+    }//GEN-LAST:event_rateM4ActionPerformed
+
+    /**
+     * Método para clasificar canción #3
+     * @param evt 
+     */
+    private void rateM3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rateM3ActionPerformed
+        // TODO add your handling code here:
+        rateM1.setSelected(false);
+        rateM2.setSelected(false);
+        rateM4.setSelected(false);
+        rateM5.setSelected(false);
+    }//GEN-LAST:event_rateM3ActionPerformed
+
+    /**
+     * Método para clasificar canción #2
+     * @param evt 
+     */
+    private void rateM2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rateM2ActionPerformed
+        // TODO add your handling code here:
+        rateM1.setSelected(false);
+        rateM3.setSelected(false);
+        rateM4.setSelected(false);
+        rateM5.setSelected(false);
+    }//GEN-LAST:event_rateM2ActionPerformed
+
+    /**
+     * Acción para abrir una nueva ventana -Metadata-
+     * @param evt 
+     */
+    private void modMetadataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modMetadataActionPerformed
+        // TODO add your handling code here:
+        MetadataMusic metadata = new MetadataMusic();
+        metadata.setVisible(true);
+    }//GEN-LAST:event_modMetadataActionPerformed
+
+    /**
+     * Acción para eliminar una canción--
+     * @param evt 
+     */
+    private void deleteMusicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteMusicActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_deleteMusicActionPerformed
+
+    /**
+     * Acción para añadir un video-
+     * @param evt 
+     */
+    private void addVideoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addVideoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addVideoActionPerformed
+
+    /**
+     * Acción para eliminar una video --
+     * @param evt 
+     */
+    private void deleteVideoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteVideoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_deleteVideoActionPerformed
+
+    /**
+     * Acción para abrir una nueva ventana -MetadataVideo-
+     * @param evt 
+     */
+    private void modVideoMetadataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modVideoMetadataActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_modVideoMetadataActionPerformed
+
+    /**
+     * Método para clasificar canción #1
+     * @param evt 
+     */
+    private void rateM1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rateM1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rateM1ActionPerformed
+
+    /**
+     * Método para clasificar canción #5
+     * @param evt 
+     */
+    private void rateM5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rateM5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rateM5ActionPerformed
+
+    /**
+     * Método para clasificar videos #2
+     * @param evt 
+     */
+    private void rateV2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rateV2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rateV2ActionPerformed
+
+    /**
+     * Método para clasificar videos #3
+     * @param evt 
+     */
+    private void rateV3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rateV3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rateV3ActionPerformed
+
+    /**
+     * Método para clasificar videos #4
+     * @param evt 
+     */
+    private void rateV4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rateV4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rateV4ActionPerformed
+
+    /**
+     * Método para clasificar videos #1
+     * @param evt 
+     */
+    private void rateV1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rateV1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rateV1ActionPerformed
+
+    /**
+     * Método para clasificar videos #5
+     * @param evt 
+     */
+    private void rateV5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rateV5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rateV5ActionPerformed
+
+    /**
+     * Acción para rrealizar la reproducción -Streaming
+     * @param evt 
+     */
+    private void playActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playActionPerformed
+
+        if (!jListMusic.isSelectionEmpty() && !jListVideos.isSelectionEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please select an option to perform the rating", "Evaluate", 2);
+
+        }
+    }//GEN-LAST:event_playActionPerformed
+
+    /**
+     * Acción para reproducir canciones/videos-
+     * @param evt 
+     */
+    private void playMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_playMouseClicked
+        // TODO add your handling code here:
+
+        //mediaPlayerComponent.release();
+        new NativeDiscovery().discover();
+
+        /*
+                ShowMedia.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                mediaPlayerComponent.release();
+                System.exit(0);
+            }
+        });*/
+        mediaPlayerComponent = new EmbeddedMediaPlayerComponent();
+        jInternalFrame1.setContentPane(mediaPlayerComponent);
+        jInternalFrame1.setVisible(true);
+        mediaPlayerComponent.getMediaPlayer().playMedia(filePath);
+
+    }//GEN-LAST:event_playMouseClicked
+
+    /**
+     * Main Interface
+     *
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -623,10 +886,8 @@ public class Interface extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Interface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
 
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Interface().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Interface().setVisible(true);
         });
 
     }
@@ -638,15 +899,20 @@ public class Interface extends javax.swing.JFrame {
     private javax.swing.JTextField S_artist;
     private javax.swing.JTextField S_letter;
     private javax.swing.JTextField S_song;
+    private javax.swing.JPanel ShowMedia;
     private javax.swing.JButton addFriend_Button;
     private javax.swing.JButton addMusic;
+    private javax.swing.JButton addVideo;
     private javax.swing.JRadioButton bad;
-    private java.awt.Choice choiceMusic;
     private javax.swing.JButton deleteMusic;
-    private javax.swing.JScrollPane equalizer;
+    private javax.swing.JButton deleteVideo;
     private javax.swing.JRadioButton good;
-    private javax.swing.JList<String> jList1;
-    private javax.swing.JTextPane jTextPane1;
+    private javax.swing.JFrame jFrame1;
+    private javax.swing.JFrame jFrame2;
+    private javax.swing.JInternalFrame jInternalFrame1;
+    private javax.swing.JList<String> jListMusic;
+    private javax.swing.JList<String> jListVideos;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextPane jTextPane2;
     private javax.swing.JTextPane jTextPane4;
     private javax.swing.JLabel lab_LyricsG;
@@ -656,23 +922,29 @@ public class Interface extends javax.swing.JFrame {
     private javax.swing.JLabel lab_song;
     private javax.swing.JScrollPane letter_User;
     private javax.swing.JScrollPane listMusic;
+    private javax.swing.JScrollPane listMusic2;
     private javax.swing.JRadioButton medium;
     private javax.swing.JButton modMetadata;
+    private javax.swing.JButton modVideoMetadata;
     private javax.swing.JScrollPane musicPlaying;
     public static javax.swing.JLabel myUserName;
+    private javax.swing.JButton play;
     private javax.swing.JSlider playerMusic;
-    private javax.swing.JRadioButton rate1;
-    private javax.swing.JRadioButton rate2;
-    private javax.swing.JRadioButton rate3;
-    private javax.swing.JRadioButton rate4;
-    private javax.swing.JRadioButton rate5;
+    private javax.swing.JRadioButton rateM1;
+    private javax.swing.JRadioButton rateM2;
+    private javax.swing.JRadioButton rateM3;
+    private javax.swing.JRadioButton rateM4;
+    private javax.swing.JRadioButton rateM5;
     private javax.swing.JButton rateSong;
+    private javax.swing.JRadioButton rateV1;
+    private javax.swing.JRadioButton rateV2;
+    private javax.swing.JRadioButton rateV3;
+    private javax.swing.JRadioButton rateV4;
+    private javax.swing.JRadioButton rateV5;
+    private javax.swing.JButton rateVideo;
     private javax.swing.JLabel search;
     private javax.swing.JButton searchS;
-    private javax.swing.JButton sortAlbum;
-    private javax.swing.JButton sortAuthor;
-    private javax.swing.JLabel sortBy;
-    private javax.swing.JButton sortName;
+    private javax.swing.JButton stop;
     private javax.swing.JButton update_User;
     // End of variables declaration//GEN-END:variables
 }

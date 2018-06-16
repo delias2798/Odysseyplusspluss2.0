@@ -24,7 +24,7 @@ public class SingIn extends javax.swing.JFrame {
      */
     public SingIn() {
         initComponents();
-        setDefaultCloseOperation(Metadata.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(MetadataMusic.DISPOSE_ON_CLOSE);
     }
 
     /**
