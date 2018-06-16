@@ -15,30 +15,41 @@ calls::~calls()
 }
 
 
-
+/**
+ * @brief calls::mysql_connect objetivo conectar con sql
+ * @return 
+ */
 bool calls::mysql_connect()
 {
     conn = mysql_init(NULL);
 
-    if(!mysql_real_connect(conn,server,user,pass,database,0,NULL,0)){
-        cout<<"Error coneccion"<<endl;
+    if(!mysql_real_connect(conn,server,user,pass,database,0,NULL,0)){//realiza comunicacion con sql
+        cout<<"Error coneccion"<<endl;                               //si se conecta correctamente true de lo contrario false
         return false;
     }
     cout<<"Acceso"<<endl;
     return true;
 }
 
+/**
+ * @brief calls::mysql_disconnect objetivo desconectarse con sql
+ */
 void calls::mysql_disconnect()
 {
-    mysql_close(conn);
+    mysql_close(conn);//cierra la coneccion
     cout<<"Cerrado"<<endl;
 }
 
+/**
+ * @brief calls::mysql_command objetivo procesar el comando en sql
+ * @param sql_line
+ * @return 
+ */
 bool calls::mysql_command(string sql_line)
 {
     const char *sql_comand=sql_line.c_str();
-    if(mysql_query(conn,sql_comand)){
-        fprintf(stderr,"%s\n",mysql_error(conn));
+    if(mysql_query(conn,sql_comand)){//requiere el uso de char*
+        fprintf(stderr,"%s\n",mysql_error(conn));//muetra los problemas que tenga con sql
         mysql_disconnect();
         return false;
     }
@@ -132,22 +143,22 @@ bool calls::deleteFriend(string user_, string fuser_)
     return false;
 }
 
-bool calls::addSong(string name_, string artist_, string year_, string letter_, string ID_genre_, string direction_, string user_)
+bool calls::addSong(string name_, string artist_, string year_, string letter_, string album_,string ID_genre_, string direction_, string user_, string rate_)
 {
     if(mysql_connect()){
-        string sql_line="INSERT INTO Ody_song VALUES ('"+name_+"', '"+artist_+"', "+year_+", '"+letter_+"', "+ID_genre_+", '"+direction_+"', '"+user_+"')";
+        string sql_line="INSERT INTO Ody_song VALUES ('"+name_+"', '"+artist_+"', "+year_+", '"+letter_+"', '"+album_+"',"+ID_genre_+", '"+direction_+"', '"+user_+"',"+rate_+")";
         cout<<sql_line<<endl;
         return mysql_command(sql_line);
     }
     return false;
 }
 
-bool calls::updateSong(string name_, string artist_, string year_, string letter_, string ID_genre_, string direction_, string user_)
+bool calls::updateSong(string name_, string artist_, string year_, string letter_, string album_, string ID_genre_, string direction_, string user_, string rate_)
 {
     if(mysql_connect()){
         string sql_line="UPDATE Ody_song "
-                        "SET year_="+year_+", letter_='"+letter_+"', ID_genre_="+ID_genre_+", direction_='"+direction_+"'"
-                        "WHERE name_='"+name_+"' AND artist_='"+artist_+"' AND user_='"+user_+"'";
+                        "SET year_="+year_+", letter_='"+letter_+"', ID_genre_="+ID_genre_+", direction_='"+direction_+"', album_='"+album_+"', rate_="+rate_+", artist_='"+artist_+"' "
+                        "WHERE name_='"+name_+"' AND user_='"+user_+"'";
         cout<<sql_line<<endl;
         return mysql_command(sql_line);
     }
@@ -287,11 +298,11 @@ QString calls::needTrack(string user_, string title_)
     return "FALSE";
 }
 
-QString calls::needAllTrack()
+QString calls::needAllTrack(string user)
 {
     string user_, title_;
     if(mysql_connect()){
-        string sql_line="SELECT name_, user_ FROM Ody_song";
+        string sql_line="SELECT name_, user_ FROM Ody_song WHERE user_='"+user+"'";
         cout<<sql_line<<endl;
         xmlConvert *xml = new xmlConvert();
         QDomElement list=xml->xmlHead();

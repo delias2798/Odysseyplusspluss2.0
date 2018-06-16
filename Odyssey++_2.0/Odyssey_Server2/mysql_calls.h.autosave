@@ -71,7 +71,7 @@ public:
      * @param user_
      * @return true si fue agregado correctamente y false si sucedio un error
      */
-    bool addSong(string name_, string artist_, string year_, string letter_, string ID_genre_, string direction_, string user_);
+    bool addSong(string name_, string artist_, string year_, string letter_, string album_, string ID_genre_, string direction_, string user_, string rate);
     /**
      * @brief updateSong Modifica la metadata de una cancion de la base de datos
      * @param name_
@@ -83,7 +83,7 @@ public:
      * @param user_
      * @return true si fue agregado correctamente y false si sucedio un error
      */
-    bool updateSong(string name_, string artist_, string year_, string letter_, string ID_genre_, string direction_, string user_);
+    bool updateSong(string name_, string artist_, string year_, string letter_, string album_, string ID_genre_, string direction_, string user_, string rate_);
     /**
      * @brief deleteSong Elimina una cancion de la base de datos
      * @param name_
@@ -119,13 +119,49 @@ public:
      */
     bool deleteVideo(string name_, string user_);
 
+    /**
+     * @brief login metodo para realizar el inicio de sesion
+     * @param user_
+     * @param pass_
+     * @return 
+     */
     bool login(string user_, string pass_);
 
+    /**
+     * @brief needUser metodo de contructor de xml del user pedido
+     * @param user_
+     * @return 
+     */
     QString needUser(string user_);
+    
+    /**
+     * @brief needFriends   metdodo de constructor xml de mostrar todos los amigos del usuario
+     * @param user_
+     * @return 
+     */
     string needFriends(string user_);
+    
+    /**
+     * @brief needLike      metodo de constructor xml de mostar todos los gustos del usuario
+     * @param user_
+     * @return 
+     */
     string needLike(string user_);
+    
+    /**
+     * @brief needTrack     metodo constructor xml del contenido de la track solicitada
+     * @param user_
+     * @param title_
+     * @return 
+     */
     QString needTrack(string user_, string title_);
-    QString needAllTrack();
+    
+    /**
+     * @brief needAllTrack  metodo constructor de extraer las canciones del usuario
+     * @param user
+     * @return 
+     */
+    QString needAllTrack(string user);
 
 
 private:
@@ -144,11 +180,21 @@ private:
      * @return true si fue agregado correctamente y false si sucedio un error
      */
     bool mysql_command(string sql_line);
-
+    /**
+     * @brief mysql_answer  realiza los comandos de la linea sql esperando una respuesta
+     * @param sql_line
+     */
     void mysql_answer(string sql_line);
-
+    /**
+     * @brief mysql_endanswer   cierra la coneccion y la respuesta
+     */
     void mysql_endanswer();
 
+    /**
+     * @brief QStr  convertido de string a qstring
+     * @param txt
+     * @return 
+     */
     QString QStr(string txt);
 
 private:

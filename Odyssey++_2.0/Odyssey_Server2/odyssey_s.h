@@ -33,6 +33,18 @@ public slots:
      */
     void leer_socket();
 
+    /**
+     * @brief Método para establecer la comunicación con el cliente
+     *
+     */
+    void conexion_Streaming();
+    /**
+     * @brief Método para leer los datos enviado por el cliente
+     *
+     */
+    void leer_Streaming();
+
+
 
     /**
      * @brief Método para crear el ficheros
@@ -47,7 +59,9 @@ public slots:
 private:
     Ui::Odyssey_S *ui;
     QTcpServer *tcpservidor; /**< TCP_Servidor */
+    QTcpServer *streaming; /**< TCP_Streaming */
     QTcpSocket *tcpcliente[2]; /**< TCP_Cliente */
+    QTcpSocket *tcpclienteStreaming[2]; /**< TCP_Cliente */
     ody_calls *call = new ody_calls();
 };
 

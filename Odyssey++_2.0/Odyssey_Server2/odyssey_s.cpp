@@ -33,15 +33,29 @@ Odyssey_S::Odyssey_S(QWidget *parent) :
     ui->setupUi(this);
     tcpservidor = new QTcpServer(this);
     tcpservidor->setMaxPendingConnections(3);
+
+    streaming = new QTcpServer(this);
+    streaming->setMaxPendingConnections(3);
+
+
     for(int i = 0; i< tcpservidor->maxPendingConnections();i++){
         tcpcliente[i] = new QTcpSocket(this);
     }
 
 
+    for(int i = 0; i< streaming->maxPendingConnections();i++){
+        tcpclienteStreaming[i] = new QTcpSocket(this);
+    }
+
+
     QHostAddress hostadd("192.168.1.147");//"192.168.43.223");
+
     tcpservidor->listen(hostadd,8888);
     connect(tcpservidor,SIGNAL(newConnection()),this, SLOT(conexion_nueva()));
 
+
+    streaming->listen(hostadd,8080);
+    connect(streaming,SIGNAL(newConnection()),this, SLOT(conexion_Streaming()));
 
 }
 
@@ -103,6 +117,20 @@ void Odyssey_S::conexion_nueva(){
 }
 
 /**
+ * @brief Método para realizar streaming
+ *
+ */
+void Odyssey_S::conexion_Streaming(){
+
+    tcpclienteStreaming[0] = streaming->nextPendingConnection();
+    connect(tcpclienteStreaming[0],SIGNAL(readyRead()),this, SLOT(leer_Streaming()));
+    ui->label_Custumer->setText("Streaming...");
+
+}
+
+
+
+/**
  * @brief Método hacer la comunicación del socket Login_Server
  *
  */
@@ -110,16 +138,20 @@ void Odyssey_S::leer_socket() {       //Recibe los datos del cliente
     if(tcpcliente[0]->bytesAvailable() > 0){
         qDebug() << "Socket ";
         QByteArray buffer;
+
         buffer.resize( tcpcliente[0]->bytesAvailable());
         tcpcliente[0]->read( buffer.data(),buffer.size() );
+
+        //qDebug() <<"Buff  " <<buffer;
 
         if(QString (buffer)!="\n"){ //Condición para no pasar "basura" del socket
             ui->plainTextEdit->setReadOnly(true);
             ui->plainTextEdit->appendPlainText("Login :"+ QString(buffer));//Aqui esta a lectura de lo recivido "Buffer"
         xml = QString (buffer)+"\n";
 
+
         std::string texto=removebackn(xml.toStdString());
-       // std::cout<<texto<<std::endl;
+        //std::cout<<texto<<std::endl;
         //QString answer = QString(texto);
         //qDebug()<<texto;
 
@@ -145,3 +177,88 @@ void Odyssey_S::leer_socket() {       //Recibe los datos del cliente
 
 }
 
+    /**
+     * @brief M
+étodo hacer la comunicación del socket Login_Server
+     *
+     */
+    void Odyssey_S::leer_Streaming() {       //Recibe los datos del cliente
+        if(tcpclienteStreaming[0]->bytesAvailable() > 0){
+
+            qDebug() << "Socket Streaming ";
+            QByteArray buffer;
+            buffer.resize( tcpclienteStreaming[0]->bytesAvailable());
+            tcpclienteStreaming[0]->read( buffer.data(),buffer.size() );
+
+            QByteArray utf16 = buffer;
+            QString str = QString::fromUtf16(
+                            reinterpret_cast<const ushort*>(utf16.constData()));
+
+
+
+
+
+
+            qDebug()<<str;
+            /*xml = QString (buffer)+"\n";
+
+            QString input(buffer);
+
+            qDebug()<<xml;
+
+
+            /*QByteArray *data = new QByteArray();
+            while(1){
+                if(tcpclienteStreaming[0]->waitForReadyRead(30000)){
+                    data->append(tcpclienteStreaming[0]->readAll());
+                    qDebug()<<*data;
+                }
+                else
+                    break;
+            }
+            QBuffer *buffer = new QBuffer(data);
+            QEventLoop *loop = new QEventLoop(this);
+            buffer->open(QIODevice::ReadOnly);
+
+
+
+            loop->exec();*/
+
+        }
+    }
+
+
+            /*
+
+            if(QString (buffer)!="\n"){ //Condición para no pasar "basura" del socket
+                ui->plainTextEdit->setReadOnly(true);
+                ui->plainTextEdit->appendPlainText("Login :"+ QString(buffer));//Aqui esta a lectura de lo recivido "Buffer"
+            xml = QString (buffer)+"\n";
+
+            std::string texto=removebackn(xml.toStdString());
+            //std::cout<<texto<<std::endl;
+            //QString answer = QString(texto);
+            //qDebug()<<texto;
+
+            QString uSerLogin,fuSerLogin= "";
+
+            QString input(buffer);//Aqui esta a lectura de lo recivido "Buffer"
+
+            QString xml_ = QString::fromStdString(texto);
+
+            string y=call->answer(xml).toUtf8().constData();
+            string res=removebackn(y);
+
+            QString x=QString::fromStdString(res)+"\n";
+            tcpcliente[0]->write( x.toLatin1().data(), x.toLatin1().size());//dato y tamaño
+            //envio de datos al cliente
+
+
+
+            }
+        }
+        else{
+            ui->plainTextEdit->appendPlainText("No se puedo realizar la comunicacion <socket Login>");
+        }
+
+        */

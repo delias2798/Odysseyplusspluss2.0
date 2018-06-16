@@ -1,0 +1,15 @@
+#include "odyssey_s.h"
+#include "ody_calls.h"
+#include <QApplication>
+#include <iostream>
+#include <QDebug>
+#include"huffman.h"
+int main(int argc, char *argv[])
+{
+    QApplication a(argc, argv);
+
+    Odyssey_S w;
+    w.show();
+    
+    return a.exec();
+}

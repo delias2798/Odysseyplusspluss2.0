@@ -15,6 +15,12 @@ QString ody_calls::answer(QString xml)
     document.setContent(bytes);
     root = document.firstChildElement();
     tag=xmlS.getData2(root,"tag");
+    cout<<xmlS.getData2(root,"dictionary")<<endl;
+    if(tag=="MSJ"){
+        return answer(Huff(root));
+    }
+
+
     if(tag=="GoLogin")
         return login(root);
 
@@ -35,6 +41,15 @@ QString ody_calls::answer(QString xml)
 
     if(tag=="NeedFriends")
         return needUser(root);
+
+    if(tag=="NeedAllTracks")
+        return needAllTrack(root);
+
+    if(tag=="AddTrack")
+        return addTrack(root);
+
+    if(tag=="UpdateTrack")
+        return updateTrack(root);
 
 
 
@@ -180,10 +195,56 @@ QString ody_calls::needTrack(string user_, string title_)
     return sql->needTrack(user_,title_);
 }
 
-QString ody_calls::needAllTrack()
+QString ody_calls::needAllTrack(QDomElement root)
 {
+    string user;
+    user=xmlS.getData2(root,"username");
     calls *sql = new calls();
-    return sql->needAllTrack();
+    return sql->needAllTrack(user);
+}
+
+QString ody_calls::addTrack(QDomElement root)
+{
+    string user, name, direction;
+    user=xmlS.getData2(root,"username");
+    name=xmlS.getData2(root,"title");
+    direction=xmlS.getData2(root,"dir");
+    calls *sql = new calls();
+    if(sql->addSong(name,"/","0","/","/","1",direction,user,"0"))
+        return "TRUE";
+    return "FALSE";
+}
+
+QString ody_calls::updateTrack(QDomElement root)
+{
+    string user, title, artist, year, letter, album, genre, direction, rate;
+    user=xmlS.getData2(root,"username");
+    title=xmlS.getData2(root,"title");
+    artist=xmlS.getData2(root,"artist");
+    year=xmlS.getData2(root,"year");
+    letter=xmlS.getData2(root,"letter");
+    album=xmlS.getData2(root,"album");
+    genre=xmlS.getData2(root,"genre");
+    direction=xmlS.getData2(root,"dir");
+    rate=xmlS.getData2(root,"rate");
+
+    calls *sql = new calls();
+    if(sql->updateSong(title,artist,year,letter,album,genre,direction,user,rate))
+        return "TRUE";
+    return "FALSE";
+}
+
+QString ody_calls::Huff(QDomElement root)
+{
+    string msg, dic;
+    msg=xmlS.getData2(root,"code01");
+    dic=xmlS.getData2(root,"dictionary");
+    huffman *h =new huffman();
+    h->diccionary(msg);
+
+    QString compres=QString::fromStdString(dic);
+
+    return h->decode(compres);
 }
 
 
